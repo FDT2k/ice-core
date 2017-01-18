@@ -1,7 +1,5 @@
 <?php namespace FDT2K\ICE\CORE;
 
-use \ICE\Env as Env;
-
 class IObject{
 	/**
 	 *
