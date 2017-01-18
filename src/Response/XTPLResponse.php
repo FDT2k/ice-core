@@ -2,7 +2,7 @@
 
 namespace FDT2k\ICE\CORE\Response;
 
-use \ICE\Env as Env;
+
 
 use FDT2k\XTPL as XTPL;
 
