@@ -1,6 +1,6 @@
 <?php
 
-namespace ICE;
+namespace FDT2K\ICE\CORE;
 
 date_default_timezone_set("Europe/Zurich");
 
