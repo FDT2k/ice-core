@@ -151,7 +151,7 @@ class Env{
 		//self::$config = new core\Config('',self::$env); // moved in preinit
 		date_default_timezone_set(self::getConfig('core')->get('timezone'));
 		self::initLogger();
-		self::$session = new core\Session();
+		self::$session = new Session();
 		if ( self::getConfig('session')->get('handler') == 'database'){
 
 			session_set_save_handler(self::$session, true);
