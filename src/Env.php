@@ -145,8 +145,8 @@ class Env{
 		//self::preinit();
 		//core\Config::init();
 		self::$argv = $argv;
-		self::$post = \ICE\core\Post::create()->setPost($_POST);
-		self::$get = \ICE\core\Get::create()->setGet($_GET);
+		self::$post = Post::create()->setPost($_POST);
+		self::$get = Get::create()->setGet($_GET);
 		//var_dump(self::$env);
 		//self::$config = new core\Config('',self::$env); // moved in preinit
 		date_default_timezone_set(self::getConfig('core')->get('timezone'));
