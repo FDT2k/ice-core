@@ -28,6 +28,153 @@ class Env{
 	public static $options;
 
 	public static $userSessionService;
+
+
+	public static function preinit($argv){
+//		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
+		self::$profiler = new Profiler;
+		register_shutdown_function('Env::shutdown');
+		ini_set('output_buffering','0');
+		ini_set('error_reporting','E_ALL');
+		error_reporting( E_ALL & ~E_NOTICE &~E_STRICT);
+		ini_set('display_startup_errors', 'on');
+		ini_set('display_errors', 'on');
+		ini_set('session.gc_probability','1');
+
+		ini_set('session.gc_divisor','20');
+		ini_set('session.gc_maxlifetime','300');
+		//session.gc_divisor
+		self::$options = new \ICE\core\cli\OptionsParser();
+		self::$options->parse($argv);
+		//var_dump(self::$options->getDatas());
+		switch(php_sapi_name()){
+			case 'apache2handler':
+			case 'apache':
+			case 'apache2filter':
+
+				self::$platform = ICE_ENV_PLATFORM_WS_APACHE;
+				self::$browser = new lib\helpers\Browser();
+			break;
+			case 'cli':
+				self::$platform = ICE_ENV_PLATFORM_CLI;
+				break;
+			default:
+				self::$platform = ICE_ENV_PLATFORM_UNKOWN;
+			break;
+		}
+
+		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE){
+			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
+		}else{ // assuming cli env
+			$o = \getopt("u:");
+
+			/*$str = "";
+			foreach($argv as $k=>$value){
+				if($k==0){
+					continue;
+				}
+				$str .= $sep.$value;
+				if($k==1){
+					$sep="?";
+				}else{
+					$sep="&";
+				}
+			}*/
+		//	var_dump($str);
+			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
+		}
+		self::$request = new core\Request();
+		// retrieving ENV, for current configuration
+		$found = false;
+		// if environment variable is set we take this one
+		if(getenv('ICE_CONFIG')!=''){
+			self::$env = getenv('ICE_CONFIG');
+			$found= true;
+		}else{ // searching in FQDN config
+			$c = new core\Config('','core'); // fqdn.yaml is always in core
+		//	$found = false;
+
+			if($map = $c->setGroup('fqdn')->get('config_mapping')){
+
+				foreach($map as $fqdn =>$config){
+					#var_dump(self::getFQDN());
+
+					if(preg_match('/'.$fqdn.'/',self::getFQDN())){
+
+						self::$env =$config;
+						$found = true;
+						break;
+					}
+				}
+			}
+		}
+		// at last we get the one defined in config.inc.php
+
+		if(!$found){
+			self::$env = ICE_ENV;
+		}
+		self::$config = new core\Config('',self::$env);
+
+		//grabbing root ws path
+		if(($path = self::getConfig()->get('web_ws_path',true))!== false){
+			define('ICE_WEB_WS_PATH',$path);
+		}else{
+			define('ICE_WEB_WS_PATH',DEFAULT_ICE_WEB_WS_PATH);
+		}
+		$profiler =self::getConfig('core')->get('profiler',true);
+#var_dump($profiler);
+
+		if(!empty($profiler)){
+			self::getProfiler()->setEnabled(true);
+		}else{
+			self::getProfiler()->setEnabled(false);
+		}
+
+	}
+
+	public static function init($argv=array()){
+		//self::preinit();
+		//core\Config::init();
+		self::$argv = $argv;
+		self::$post = \ICE\core\Post::create()->setPost($_POST);
+		self::$get = \ICE\core\Get::create()->setGet($_GET);
+		//var_dump(self::$env);
+		//self::$config = new core\Config('',self::$env); // moved in preinit
+		date_default_timezone_set(self::getConfig('core')->get('timezone'));
+		self::initLogger();
+		self::$session = new core\Session();
+		if ( self::getConfig('session')->get('handler') == 'database'){
+
+			session_set_save_handler(self::$session, true);
+		}
+		session_start();
+		self::$route = new core\Route();
+		self::$router = new core\Router();
+		self::$session->init();
+		if($s = self::getConfig('auth')->get('auth_service')){
+			self::$authenticationService=  new $s();
+		}
+		if($s = self::getConfig('auth')->get('session_service')){
+			self::$userSessionService=  new $s();
+		}
+
+		if($locale = Env::getConfig()->get('locale')){
+		//var_dump($locale);
+			setlocale(LC_ALL,$locale);
+		}
+		self::initTranslator();
+		Env::getLogger()->startLog('env init');
+
+
+
+
+	//	var_dump($_SERVER);
+		Env::getLogger()->endLog('env init');
+
+//$r = new
+	//	self::dump();
+	}
+
 	public static function shutdown(){
 
 		self::getProfiler()->render();
@@ -180,150 +327,6 @@ class Env{
 			return \getopt($s,$l);
 	}
 
-	public static function preinit($argv){
-//		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
-		self::$profiler = new Profiler;
-		register_shutdown_function('\ICE\Env::shutdown');
-		ini_set('output_buffering','0');
-		ini_set('error_reporting','E_ALL');
-		error_reporting( E_ALL & ~E_NOTICE &~E_STRICT);
-		ini_set('display_startup_errors', 'on');
-		ini_set('display_errors', 'on');
-		ini_set('session.gc_probability','1');
-
-		ini_set('session.gc_divisor','20');
-		ini_set('session.gc_maxlifetime','300');
-		//session.gc_divisor
-		self::$options = new \ICE\core\cli\OptionsParser();
-		self::$options->parse($argv);
-		//var_dump(self::$options->getDatas());
-		switch(php_sapi_name()){
-			case 'apache2handler':
-			case 'apache':
-			case 'apache2filter':
-
-				self::$platform = ICE_ENV_PLATFORM_WS_APACHE;
-				self::$browser = new lib\helpers\Browser();
-			break;
-			case 'cli':
-				self::$platform = ICE_ENV_PLATFORM_CLI;
-				break;
-			default:
-				self::$platform = ICE_ENV_PLATFORM_UNKOWN;
-			break;
-		}
-
-		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE){
-			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
-		}else{ // assuming cli env
-			$o = \getopt("u:");
-
-			/*$str = "";
-			foreach($argv as $k=>$value){
-				if($k==0){
-					continue;
-				}
-				$str .= $sep.$value;
-				if($k==1){
-					$sep="?";
-				}else{
-					$sep="&";
-				}
-			}*/
-		//	var_dump($str);
-			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
-		}
-		self::$request = new core\Request();
-		// retrieving ENV, for current configuration
-		$found = false;
-		// if environment variable is set we take this one
-		if(getenv('ICE_CONFIG')!=''){
-			self::$env = getenv('ICE_CONFIG');
-			$found= true;
-		}else{ // searching in FQDN config
-			$c = new core\Config('','core'); // fqdn.yaml is always in core
-		//	$found = false;
-
-			if($map = $c->setGroup('fqdn')->get('config_mapping')){
-
-				foreach($map as $fqdn =>$config){
-					#var_dump(self::getFQDN());
-
-					if(preg_match('/'.$fqdn.'/',self::getFQDN())){
-
-						self::$env =$config;
-						$found = true;
-						break;
-					}
-				}
-			}
-		}
-		// at last we get the one defined in config.inc.php
-
-		if(!$found){
-			self::$env = ICE_ENV;
-		}
-		self::$config = new core\Config('',self::$env);
-
-		//grabbing root ws path
-		if(($path = self::getConfig()->get('web_ws_path',true))!== false){
-			define('ICE_WEB_WS_PATH',$path);
-		}else{
-			define('ICE_WEB_WS_PATH',DEFAULT_ICE_WEB_WS_PATH);
-		}
-		$profiler =self::getConfig('core')->get('profiler',true);
-#var_dump($profiler);
-
-		if(!empty($profiler)){
-			self::getProfiler()->setEnabled(true);
-		}else{
-			self::getProfiler()->setEnabled(false);
-		}
-
-	}
-
-	public static function init($argv=array()){
-		//self::preinit();
-		//core\Config::init();
-		self::$argv = $argv;
-		self::$post = \ICE\core\Post::create()->setPost($_POST);
-		self::$get = \ICE\core\Get::create()->setGet($_GET);
-		//var_dump(self::$env);
-		//self::$config = new core\Config('',self::$env); // moved in preinit
-		date_default_timezone_set(self::getConfig('core')->get('timezone'));
-		self::initLogger();
-		self::$session = new core\Session();
-		if ( self::getConfig('session')->get('handler') == 'database'){
-
-			session_set_save_handler(self::$session, true);
-		}
-		session_start();
-		self::$route = new core\Route();
-		self::$router = new core\Router();
-		self::$session->init();
-		if($s = self::getConfig('auth')->get('auth_service')){
-			self::$authenticationService=  new $s();
-		}
-		if($s = self::getConfig('auth')->get('session_service')){
-			self::$userSessionService=  new $s();
-		}
-
-		if($locale = Env::getConfig()->get('locale')){
-		//var_dump($locale);
-			setlocale(LC_ALL,$locale);
-		}
-		self::initTranslator();
-		Env::getLogger()->startLog('env init');
-
-
-
-
-	//	var_dump($_SERVER);
-		Env::getLogger()->endLog('env init');
-
-//$r = new
-	//	self::dump();
-	}
 
 	public static function getRoute(){
 		return self::$route;
