@@ -33,7 +33,7 @@ class Env{
 	public static function preinit($argv){
 //		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
 		self::$profiler = new Profiler;
-		register_shutdown_function('Env::shutdown');
+		register_shutdown_function('FDT2k\ICE\CORE\Env::shutdown');
 		ini_set('output_buffering','0');
 		ini_set('error_reporting','E_ALL');
 		error_reporting( E_ALL & ~E_NOTICE &~E_STRICT);
