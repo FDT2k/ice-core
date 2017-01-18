@@ -90,7 +90,7 @@ class Env{
 				}
 			}*/
 		//	var_dump($str);
-			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
+			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
 		}
 		self::$request = new core\Request();
 		// retrieving ENV, for current configuration
