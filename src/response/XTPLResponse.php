@@ -1,10 +1,10 @@
 <?php
 
-namespace ICE\core\response;
+namespace FDT2k\ICE\CORE\Response;
 
 use \ICE\Env as Env;
 
-class XTPLResponse extends  Response{
+class XTPLResponse extends Response{
 
 	protected $template = 'template.xml';
 	protected $includes;
@@ -19,35 +19,35 @@ class XTPLResponse extends  Response{
 		$count = 0;
 		foreach($object->getAncestors() as $namespace){
 
-		
+
 			$this->renderer->addPath(Env::getBundlePath($namespace).'/templates/'.Env::getModuleName($namespace),XTPL_INCLUDE_PATH);
-			
+
 			$this->renderer->addPath(Env::getBundlePath($namespace).'/templates/'.Env::getBundleName($namespace),XTPL_INCLUDE_PATH);
-			
+
 			$this->renderer->addPath(Env::getBundlePath($namespace).'/templates',XTPL_INCLUDE_PATH);
-		
-			
+
+
 			$this->renderer->addPath(Env::getWebFSPath().'/'.Env::getBundleName($namespace).'/styles/'.Env::getModuleName($namespace),XTPL_CSS_PATH);
 			$this->renderer->addPath(Env::getWebFSPath().'/'.Env::getBundleName($namespace).'/styles/',XTPL_CSS_PATH);
-	
 
-			
+
+
 			$this->renderer->addPath(Env::getWebFSPath().'/'.Env::getBundleName($namespace).'/images/'.Env::getModuleName($namespace),XTPL_IMAGE_PATH);
 			$this->renderer->addPath(Env::getWebFSPath().'/'.Env::getBundleName($namespace).'/images/',XTPL_IMAGE_PATH);
-		
 
-			
+
+
 			$this->renderer->addPath(Env::getWebFSPath().'/'.Env::getBundleName($namespace).'/scripts/'.Env::getModuleName($namespace),XTPL_SCRIPT_PATH);
 			$this->renderer->addPath(Env::getWebFSPath().'/'.Env::getBundleName($namespace).'/scripts/',XTPL_SCRIPT_PATH);
-		
+
 			$count++;
 		}
 		$this->renderer->addPath(Env::getWebFSPath().'/styles',XTPL_CSS_PATH);
 		$this->renderer->addPath(Env::getWebFSPath().'/images',XTPL_IMAGE_PATH);
 		$this->renderer->addPath(Env::getWebFSPath().'/scripts',XTPL_SCRIPT_PATH);
-	
 
-		//setting default path for browsable content 
+
+		//setting default path for browsable content
 		$this->renderer->defaultPrefixForWebContent= Env::getWebWSPath().'/'.Env::getBundleName($object->getClassName());
 		$this->renderer->defaultFSPrefixForWebContent= Env::getWebFSPath().'/'.Env::getBundleName($object->getClassName());
 
@@ -68,7 +68,7 @@ class XTPLResponse extends  Response{
 		$tpl = $this->renderer->findIncludeFile($tpl);
 		//$this->appendVariable($zone,$block);
 		$this->renderer->appendToVariable($zone,$tpl);
-	
+
 	}
 	function includeFile($file){
 		$this->includes[]=$file;
@@ -78,18 +78,18 @@ class XTPLResponse extends  Response{
 	function setVariable($name,$value, $scope='global'){
 		$this->renderer->setVariable($name,$value,$scope);
 	}
-	
+
 	function output_headers(){
 		header('HTTP/1.0 '.$this->getResponseCode());
 		header('Content-type :'.$this->mime);
-	
+
 	}
 
 	function output(){
-		
+
 		$this->output_headers();
-	
-	
+
+
 		$this->setVariable('self',$this);
 		$this->setVariable('ROUTE',Env::getRoute());
 		$this->setVariable('SESSION',Env::getSession());
@@ -105,7 +105,7 @@ class XTPLResponse extends  Response{
 		//var_dump($this);
 		echo $this->renderer->render($this->template);
 		//var_dump(Env::getLogger()->dump());
-		
+
 	}
 
 }
