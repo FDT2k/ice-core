@@ -360,7 +360,7 @@ class Env{
 		if($class && class_exists($class)){
 			$logger = new $class;
 		}else{
-			$logger=  new core\Logger();
+			$logger=  new Logger();
 		}
 
 
