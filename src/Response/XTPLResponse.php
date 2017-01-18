@@ -4,6 +4,9 @@ namespace FDT2k\ICE\CORE\Response;
 
 use \ICE\Env as Env;
 
+use FDT2k\XTPL as XTPL;
+
+
 class XTPLResponse extends Response{
 
 	protected $template = 'template.xml';
@@ -11,7 +14,7 @@ class XTPLResponse extends Response{
 	function __construct($object='',$renderer=''){
 
 		if(empty($renderer)){
-			$this->renderer = new \ICE\lib\xml\XTPLHTML();
+			$this->renderer = new \FDT2k\XTPLHTML();
 		}else{
 			$this->renderer = $renderer;
 
