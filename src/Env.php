@@ -413,6 +413,11 @@ class Env{
 	public static function getFSPath(){
 		return ICE_ROOT.ICE_PATH;
 	}
+
+	public static function getTemporaryFSPath(){
+		return self::getFSPath()."/var/caches"
+	}
+
 	public static function getCachePath($folder=''){
 		$path= Env::getFSPath()."/caches/".$folder;
 		if(!file_exists($path)){
