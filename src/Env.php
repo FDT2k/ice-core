@@ -157,8 +157,8 @@ class Env{
 			session_set_save_handler(self::$session, true);
 		}
 		session_start();
-		self::$route = new core\Route();
-		self::$router = new core\Router();
+		self::$route = new Route();
+		self::$router = new Router();
 		self::$session->init();
 		if($s = self::getConfig('auth')->get('auth_service')){
 			self::$authenticationService=  new $s();
