@@ -1,9 +1,9 @@
 <?php
-namespace FDT2K\ICE\CORE;
+namespace FDT2k\ICE\CORE;
 
-use \ICE\Env as Env;
-use \ICE\lib\helpers\Hash as Hash;
-class Module extends  \ICE\core\IObject{
+
+use FDT2k\Helpers\Hash as Hash;
+class Controller extends IObject{
 	protected $renderer; // render
 	protected $preventRender=false;
 
