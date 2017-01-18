@@ -6,6 +6,7 @@ use \ICE\Env as Env;
 
 use FDT2k\XTPL as XTPL;
 
+use FDT2k\ICE\CORE\Env as Env;
 
 class XTPLResponse extends Response{
 
