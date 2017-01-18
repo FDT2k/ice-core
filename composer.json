@@ -14,5 +14,11 @@
         "psr-4": {
             "FDT2k\\ICE\\CORE\\": "src/"
         }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "fdt2k/common-libs":"*",
+      
+
     }
 }
