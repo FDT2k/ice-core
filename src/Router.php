@@ -86,7 +86,7 @@ class Router extends IObject{
 		}
 
 		if(empty($this->getBundle())){
-			if(isset($uri->path[0])){
+			if(!empty($uri->path[0])){
 				$this->setBundle($uri->path[0]);
 			}else{
 				$this->setBundle('base');
@@ -94,7 +94,7 @@ class Router extends IObject{
 		}
 
 		if(empty($this->getModule())){
-			if(isset($uri->path[1])){
+			if(!empty($uri->path[1])){
 				$this->setModule($uri->path[1] );
 			}else{
 				$this->setModule('base');
@@ -102,7 +102,7 @@ class Router extends IObject{
 		}
 
 		if(empty($this->getAction())){
-			if(isset($uri->path[2])){
+			if(!empty($uri->path[2])){
 				$this->setAction($uri->path[2]);
 			}else {
 				$this->setAction('index');

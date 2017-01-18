@@ -6,6 +6,8 @@ define('ICE_ENV_PLATFORM_WS_APACHE',"apache");
 define('ICE_ENV_PLATFORM_CLI',"console");
 define('ICE_ENV_PLATFORM_UNKOWN',"unkown");
 
+
+define('CONFIG_FOLDER_NAME','config');
 use FDT2k\Helpers as Helpers;
 
 class Env{
@@ -491,7 +493,7 @@ class Env{
 	}
 
 	public static function getFSConfigPath(){
-		return self::getFSPath()."/conf";
+		return self::getFSPath()."/".CONFIG_FOLDER_NAME;
 	}
 
 	public static function path($pathes){
