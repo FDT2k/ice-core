@@ -3,7 +3,7 @@
 namespace FDT2k\ICE\CORE;
 
 
-class Profiler extends \ICE\core\IObject{
+class Profiler extends IObject{
 
 	#public static function
 
