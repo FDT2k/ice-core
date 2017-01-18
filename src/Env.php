@@ -92,7 +92,7 @@ class Env{
 		//	var_dump($str);
 			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
 		}
-		self::$request = new core\Request();
+		self::$request = new Request();
 		// retrieving ENV, for current configuration
 		$found = false;
 		// if environment variable is set we take this one
