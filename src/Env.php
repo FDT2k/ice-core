@@ -122,7 +122,7 @@ class Env{
 		if(!$found){
 			self::$env = ICE_ENV;
 		}
-		self::$config = new core\Config('',self::$env);
+		self::$config = new \ConfigManager('',self::$env);
 
 		//grabbing root ws path
 		if(($path = self::getConfig()->get('web_ws_path',true))!== false){
