@@ -1,9 +1,9 @@
 <?php
-namespace FDT2K\ICE\CORE;
+namespace FDT2k\ICE\CORE;
 
-use \ICE\Env as Env;
 
-class TranslationBase  extends \ICE\core\IObject{
+
+class TranslationBase  extends IObject{
 	public $translations;
 
 	function __construct($lang=null){
