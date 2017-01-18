@@ -34,7 +34,7 @@ class Env{
 
 
 	public static function preinit($argv){
-//		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
+		spl_autoload_register(__NAMESPACE__ .'FDT2k\ICE\CORE\Env::autoload');
 		self::$profiler = new Profiler;
 
 		//Doing some php configuration
