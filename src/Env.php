@@ -6,6 +6,7 @@ define('ICE_ENV_PLATFORM_WS_APACHE',"apache");
 define('ICE_ENV_PLATFORM_CLI',"console");
 define('ICE_ENV_PLATFORM_UNKOWN',"unkown");
 
+use FDT2k\Helpers;
 
 class Env{
 	public static $translator;
@@ -72,7 +73,7 @@ class Env{
 
 		//
 		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE){
-			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
+			self::$uri = new URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
 		}else{ // assuming cli env
 			$o = \getopt("u:");
 
