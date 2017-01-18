@@ -33,6 +33,8 @@ class Env{
 	public static function preinit($argv){
 //		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
 		self::$profiler = new Profiler;
+
+		//Doing some php configuration
 		register_shutdown_function('FDT2k\ICE\CORE\Env::shutdown');
 		ini_set('output_buffering','0');
 		ini_set('error_reporting','E_ALL');
@@ -43,10 +45,9 @@ class Env{
 
 		ini_set('session.gc_divisor','20');
 		ini_set('session.gc_maxlifetime','300');
-		//session.gc_divisor
-		self::$options = new \ICE\core\cli\OptionsParser();
-		self::$options->parse($argv);
-		//var_dump(self::$options->getDatas());
+
+
+		// grabbing some environmental datas
 		switch(php_sapi_name()){
 			case 'apache2handler':
 			case 'apache':
@@ -63,6 +64,13 @@ class Env{
 			break;
 		}
 
+		if(self::$platform == ICE_ENV_PLATFORM_CLI){
+			self::$options = new \ICE\core\cli\OptionsParser();
+			self::$options->parse($argv);
+		}
+
+
+		//
 		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE){
 			self::$uri = new lib\helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
 		}else{ // assuming cli env
