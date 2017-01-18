@@ -1,8 +1,7 @@
 <?php
-namespace FDT2K\ICE\CORE;
+namespace FDT2k\ICE\CORE;
 
-use \ICE\Env as Env;
-use \ICE\lib\helpers as h;
+use FDT2k\Helpers as Helpers;
 
 class Route extends \ICE\core\Config{
 	public $querystring;
@@ -80,7 +79,7 @@ class Route extends \ICE\core\Config{
 						return array('bundle'=>$r['bundle'],'module'=>$r['default_module'],'action'=>$r['default_action']);
 					}else{
 						// really bad bad error, we could end up anywhere
-						throw new  \ICE\core\Exception("Route Misconfiguration. \"".$route."\" does not exist.",0);
+						throw new  Exception("Route Misconfiguration. \"".$route."\" does not exist.",0);
 					}
 
 				}
@@ -150,7 +149,7 @@ class Route extends \ICE\core\Config{
 			// if we pass something like the full path on the first param we have to parse it and ignore other parameters.
 			// no support for relative pathes
 //var_dump(Env::getServerPrefix()."".$action);
-			$uri = new \ICE\lib\helpers\URI(Env::getServerPrefix()."".$action);
+			$uri = new Helpers\URI(Env::getServerPrefix()."".$action);
 			//var_dump($action);
 	//		var_dump($uri);
 			$bundle = $uri->path[0];
