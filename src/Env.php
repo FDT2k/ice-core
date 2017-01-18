@@ -100,7 +100,7 @@ class Env{
 			self::$env = getenv('ICE_CONFIG');
 			$found= true;
 		}else{ // searching in FQDN config
-			$c = new core\Config('','core'); // fqdn.yaml is always in core
+			$c = new \ConfigManager('','core'); // fqdn.yaml is always in core
 		//	$found = false;
 
 			if($map = $c->setGroup('fqdn')->get('config_mapping')){
