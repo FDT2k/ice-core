@@ -2,7 +2,6 @@
 
 namespace FDT2k\ICE\CORE;
 
-use \ICE\Env as Env;
 
 class Profiler extends \ICE\core\IObject{
 
