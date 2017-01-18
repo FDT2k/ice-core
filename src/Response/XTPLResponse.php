@@ -14,7 +14,7 @@ class XTPLResponse extends Response{
 	function __construct($object='',$renderer=''){
 
 		if(empty($renderer)){
-			$this->renderer = new \FDT2k\XTPLHTML();
+			$this->renderer = new \FDT2k\XTPL\XTPLHTML();
 		}else{
 			$this->renderer = $renderer;
 
