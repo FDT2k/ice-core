@@ -1,6 +1,5 @@
 <?php
-namespace FDT2K\ICE\CORE;
-
+namespace FDT2k\ICE\CORE;
 
 
 class Post extends IObject{
