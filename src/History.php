@@ -1,11 +1,10 @@
 <?php
 
-namespace FDT2K\ICE\CORE;
-
-use \ICE\Env as Env;
+namespace FDT2k\ICE\CORE;
 
 
-class HistoryItem extends \ICE\core\IObject{
+
+class HistoryItem extends IObject{
 
 }
 
@@ -16,12 +15,12 @@ class History{
 
 	public function __construct(){
 		//$this->action = $action;
-		
+
 		$this->history = &$_SESSION['history'];
 		$this->history_ordered = &$_SESSION['history_ordered'];
 		//var_dump(Env::getRoute()->bundle);
 	}
-	
+
 	public function reset(){
 		$this->history = array();
 		$this->history_ordered = array();
@@ -34,7 +33,7 @@ class History{
 		//var_dump($get);
 		$this->storeHistory(ucFirst($label),$r->action,$r->module,$r->bundle,$get,$post);
 	}
-	
+
 	public function storeHistory($desc,$action,$module,$bundle,$qs,$post){
 // 		$datas=array('string'=>$desc,'action'=>Env::getAction(),'module'=>$current_bundle);
 		$current_bundle = Env::getRoute()->bundle;
@@ -62,12 +61,12 @@ class History{
 		if(!@in_array($key,$this->history_ordered[$current_bundle])){
 			$this->history_ordered[$current_bundle][] = $key;
 			$this->history[$current_bundle][$key] = $datas;
-			
+
 		} else { // on efface l'historique jusqu'a revenir a ce point précis (l'actuel)
 			// on met a jour les parametres
 			$this->history[$current_bundle][$key] = $datas;
-			
-			$bClear = false; 
+
+			$bClear = false;
 			foreach ($this->history_ordered[$current_bundle] as  $datas){
 				if(!$bClear){ // on parcours la liste tant qu'on a pas trouvé le point actuel.
 					$tmp[]=$datas; // on stocke la clé pour plus tard
@@ -81,9 +80,9 @@ class History{
 				}
 			}
 		}
-		
+
 		//if we are not the first step we store the posted data to the previous step
-	/*	
+	/*
 		// this is not used anymore I think (2015-08-4)
 		$ar = $this->history_ordered[$current_bundle];
 		$previous = sizeof($ar)-2;
@@ -91,8 +90,8 @@ class History{
 			$this->history[$current_bundle][$ar[$previous]]['posted_datas']=serialize($params);
 		}
 		*/
-		
-		//wtf ?   fuck you future me ! 
+
+		//wtf ?   fuck you future me !
 		// okay past me, you got me (2015-08-4)
 		// this has no fucking sense.
 		/*$tmp = array();
@@ -113,7 +112,7 @@ class History{
 		$current_bundle = Env::getRoute()->bundle;
 		if(is_array($this->history_ordered[$current_bundle])){
 			foreach ($this->history_ordered[$current_bundle] as $key ){
-		
+
 				$tmp[]=array('key'=>$key,'module'=>$this->history[$current_bundle][$key]->getModule(),'string'=>$this->history[$current_bundle][$key]->getLabel());
 			}
 		}
@@ -156,23 +155,23 @@ class History{
 		}
 		return false;
 	}
-		
+
 	public function getStateError(array $formDatas = array()){
 //var_dump($formDatas);
 		$datas = $this->history_ordered[$current_bundle];
-		$key = $datas[sizeof($datas)-1];		
+		$key = $datas[sizeof($datas)-1];
 		if(!empty($key)){
 			if(sizeof($formDatas)>0){
 				//injecting params
-		
-				$params = unserialize ($this->history[$current_bundle][$key]['params']); 
-		
+
+				$params = unserialize ($this->history[$current_bundle][$key]['params']);
+
 				foreach($formDatas as $k => $value){
 					if(!isset($params[$k])){
 						$params[$k]=$value;
 					}
 				}
-	
+
 				$params = serialize($params);
 
 				$this->history[$current_bundle][$key]['params']=$params;
@@ -186,21 +185,21 @@ class History{
 //var_dump($formDatas);
 		$current_bundle = Env::getRoute()->bundle;
 		$datas = $this->history_ordered[$current_bundle];
-		$key = $datas[sizeof($datas)-1];		
+		$key = $datas[sizeof($datas)-1];
 
 	#	var_dump( $this->history_ordered);
 		if(!empty($key)){
 			if(sizeof($formDatas)>0){
 				//injecting params
-		
-				$params = unserialize ($this->history[$current_bundle][$key]['params']); 
-		
+
+				$params = unserialize ($this->history[$current_bundle][$key]['params']);
+
 				foreach($formDatas as $k => $value){
 					if(!isset($params[$k])){
 						$params[$k]=$value;
 					}
 				}
-	
+
 				$params = serialize($params);
 
 				$this->history[$current_bundle][$key]['params']=$params;
@@ -209,7 +208,7 @@ class History{
 		}
 		return false;
 	}
-	
+
 	public function getStateSuccess(){
 		$datas = $this->history_ordered[$current_bundle];
 		$key = $datas[sizeof($datas)-2];
@@ -218,9 +217,9 @@ class History{
 		}
 		return false;
 	}
-	
+
 	public function setError($key,$error){
 		$this->history[$current_bundle][$key]['error']=$error;
 	}
-	
+
 }

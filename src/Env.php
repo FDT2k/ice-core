@@ -383,7 +383,7 @@ class Env{
 
 	public static function initTranslator(){
 		//langage should go in im core env... temporary for testing
-		$translation = new core\TranslationBase();
+		$translation = new TranslationBase();
 		Env::setTranslator($translation);
 		//self::$langage = $translation->language;
 	}
@@ -398,7 +398,7 @@ class Env{
 	public static function getHistory(){
 		if(!isset(self::$history)){
 
-			self::$history = new core\History();
+			self::$history = new History();
 		}
 		return self::$history;
 	}
