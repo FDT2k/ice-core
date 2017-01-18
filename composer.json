@@ -20,5 +20,11 @@
         "fdt2k/common-libs":"*"
 
 
-    }
+    },
+    "repositories": [
+      {
+            "type": "vcs",
+            "url": "../ice-libs"
+        }
+      ]
 }
