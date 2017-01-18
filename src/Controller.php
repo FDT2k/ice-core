@@ -50,7 +50,6 @@ class Controller extends IObject{
 	function initResponse(){
 		if($this->action[0]=='_'){
 			$this->response = new \ICE\core\response\JSONResponse();
-
 		}else{
 			$this->response = new \ICE\core\response\XTPLResponse($this);
 			$this->response->setVariable('MODULE',$this);
@@ -61,11 +60,11 @@ class Controller extends IObject{
 	}
 
 	function getModelUser(){
-		return new \base\model\User();
+//		return new \base\model\User();
 	}
 
 	function getModel(){
-		return new \base\model\Database();
+//		return new \base\model\Database();
 	}
 
 
