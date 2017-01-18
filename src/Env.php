@@ -100,7 +100,7 @@ class Env{
 			self::$env = getenv('ICE_CONFIG');
 			$found= true;
 		}else{ // searching in FQDN config
-			$c = new \ConfigManager('','core'); // fqdn.yaml is always in core
+			$c = new \ConfigManager(Env::getFSConfigPath(),'core'); // fqdn.yaml is always in core
 		//	$found = false;
 
 			if($map = $c->setGroup('fqdn')->get('config_mapping')){
@@ -122,7 +122,7 @@ class Env{
 		if(!$found){
 			self::$env = ICE_ENV;
 		}
-		self::$config = new \ConfigManager('',self::$env);
+		self::$config = new \ConfigManager(Env::getFSConfigPath(),self::$env);
 
 		//grabbing root ws path
 		if(($path = self::getConfig()->get('web_ws_path',true))!== false){
