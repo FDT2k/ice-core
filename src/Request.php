@@ -1,6 +1,5 @@
 <?php
 namespace FDT2k\ICE\CORE;
-use \ICE\Env as Env;
 
 
 class Request extends iObject{
@@ -19,8 +18,8 @@ class Request extends iObject{
 			$this->setHeaders(\getallheaders());
 		}
 
-		$this->get = \ICE\core\IObject::create()->setDefaultDatas($_GET);
-		$this->post = \ICE\core\IObject::create()->setDefaultDatas($_POST);
+		$this->get = IObject::create()->setDefaultDatas($_GET);
+		$this->post = IObject::create()->setDefaultDatas($_POST);
 
 		$vars = $_GET;
 
@@ -37,7 +36,7 @@ class Request extends iObject{
 			if(is_array($method_var)){
 				$vars = array_replace_recursive($vars,$method_var);
 			}
-			$this->$m = \ICE\core\IObject::create()->setDefaultDatas($method_var);
+			$this->$m = IObject::create()->setDefaultDatas($method_var);
 		}else if (strpos($this->getContentType(), "application/json") !== false){
 			$postdata = file_get_contents("php://input");
 			$method_var = json_decode($postdata,true);
@@ -45,10 +44,10 @@ class Request extends iObject{
 			if(is_array($method_var)){
 				$vars = array_replace_recursive($vars,$method_var);
 			}
-			$this->$m = \ICE\core\IObject::create()->setDefaultDatas($method_var);
+			$this->$m = IObject::create()->setDefaultDatas($method_var);
 		}
 
-		$this->request =\ICE\core\IObject::create()->setDefaultDatas($vars);
+		$this->request = IObject::create()->setDefaultDatas($vars);
 
 		if($str = $this->getHeader('Authorization')){
 			 list($jwt) = sscanf( $str, 'Bearer %s');
