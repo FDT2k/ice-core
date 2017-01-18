@@ -1,10 +1,10 @@
 <?php
-namespace FDT2K\ICE\CORE;
+namespace FDT2k\ICE\CORE;
 
 use \ICE\Env as Env;
 use \ICE\lib\helpers as h;
 
-class Router extends \ICE\core\IObject{
+class Router extends IObject{
 
 	function match(){
 		$match = false;

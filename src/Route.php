@@ -3,7 +3,7 @@ namespace FDT2k\ICE\CORE;
 
 use FDT2k\Helpers as Helpers;
 
-class Route extends \ICE\core\Config{
+class Route extends \ConfigManager{
 	public $querystring;
 	protected $appendQS;
 
