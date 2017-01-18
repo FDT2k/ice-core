@@ -54,7 +54,7 @@ class Env{
 			case 'apache2filter':
 
 				self::$platform = ICE_ENV_PLATFORM_WS_APACHE;
-				self::$browser = new lib\helpers\Browser();
+				self::$browser = new \Browser();
 			break;
 			case 'cli':
 				self::$platform = ICE_ENV_PLATFORM_CLI;
