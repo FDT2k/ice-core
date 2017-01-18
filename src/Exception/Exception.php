@@ -1,6 +1,6 @@
 <?php
 
-namespace FDT2k\ICE\CORE\Exception
+namespace FDT2k\ICE\CORE\Exception;
 
 
 class Exception extends \Exception{
