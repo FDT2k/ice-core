@@ -12,7 +12,7 @@
 
     "autoload": {
         "psr-4": {
-            "FDT2k\\CORE\\": "src/"
+            "FDT2k\\ICE\\CORE\\": "src/"
         }
     }
 }
