@@ -1,13 +1,13 @@
 <?php
-namespace FDT2K\ICE\CORE;
-use \ICE\Env as Env;
+namespace FDT2k\ICE\CORE;
+
 class Session implements \SessionHandlerInterface{
 	public  $session;
 	public  function init(){
 		$this->resetPrefix();
-		
+
 	}
-	
+
 	public  function resetPrefix(){
 		$this->session = &$_SESSION;
 	}
@@ -27,7 +27,7 @@ class Session implements \SessionHandlerInterface{
 	public function get($name){
 		return $this->session[$name];
 	}
-	
+
 	public function getSessionID(){
 		return session_id();
 	}
@@ -64,13 +64,13 @@ class Session implements \SessionHandlerInterface{
     			$this->exists = true;
     		}
     	}
-    	
+
     	return $result;
      //   return (string)@file_get_contents("$this->savePath/sess_$id");
     }
 
     public function write($id, $data)
-    {	
+    {
     	if(!$this->exists){
     		$sql = "insert INTO php_sessions (sess_id,datas,created_on,last_used_on,ip) VALUES(".$this->db->convertString($id).", ".$this->db->convertString($data).", '".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."','".$_SERVER['REMOTE_ADDR']."')";
     		//var_dump($sql);
@@ -83,7 +83,7 @@ class Session implements \SessionHandlerInterface{
     public function destroy($id)
     {
     	return $this->db->executeUpdate("delete from php_sessions where id = ".$this->db->convertString($id));
-       
+
     }
 
     public function gc($maxlifetime)
