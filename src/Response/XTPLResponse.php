@@ -50,7 +50,7 @@ class XTPLResponse extends Response{
 		$this->renderer->addPath(Env::getWebFSPath().'/images',XTPL_IMAGE_PATH);
 		$this->renderer->addPath(Env::getWebFSPath().'/scripts',XTPL_SCRIPT_PATH);
 
-var_dump($this->renderer);
+
 
 		//setting default path for browsable content
 		$this->renderer->defaultPrefixForWebContent= Env::getWebWSPath().'/'.Env::getBundleName($object->getClassName());
