@@ -2,31 +2,6 @@
 
 namespace FDT2k\ICE\CORE;
 
-date_default_timezone_set("Europe/Zurich");
-
-function __($string){
-	if($translator = Env::getTranslator()){
-		return $translator->getTranslation($string);
-	}else{
-		return $string;
-	}
-}
-
-function array_flip_key($array,$key){
-	$result = array();
-	if (is_array($array)){
-		foreach($array as $k => $value){
-			$result[$value[$key]]=$value;
-		}
-	}
-	return $result;
-}
-
-function isEmpty($val) {
-	if(!is_string($val)){return false;}
-	$val = trim($val);
-	return empty($val) && $val !== 0 && $val !=="0";
-}
 define('ICE_ENV_PLATFORM_WS_APACHE',"apache");
 define('ICE_ENV_PLATFORM_CLI',"console");
 define('ICE_ENV_PLATFORM_UNKOWN',"unkown");
