@@ -1,8 +1,8 @@
 <?php
 namespace FDT2k\ICE\CORE;
 
-use \ICE\Env as Env;
-use \ICE\lib\helpers as h;
+
+use \FDT2k\Helpers as h;
 
 class Router extends IObject{
 
