@@ -1,6 +1,6 @@
 <?php
 
-namespace FDT2K\ICE\CORE;
+namespace FDT2k\ICE\CORE;
 
 use \ICE\Env as Env;
 
