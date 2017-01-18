@@ -415,7 +415,7 @@ class Env{
 	}
 
 	public static function getTemporaryFSPath(){
-		return self::getFSPath()."/var/caches"
+		return self::getFSPath()."/var/caches";
 	}
 
 	public static function getCachePath($folder=''){
