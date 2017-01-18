@@ -128,7 +128,7 @@ class Controller extends IObject{
 						$this->afterActionRun($this->action,$this->response);
 					}
 
-					if($this->response && is_a($this->response,'\ICE\core\response\Response') ){
+					if($this->response && is_a($this->response,'\FDT2k\ICE\CORE\Response\Response') ){
 						$this->response->output();
 					}
 				}else{
