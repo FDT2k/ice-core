@@ -133,19 +133,19 @@ class Controller extends IObject{
 					}
 				}else{
 					header('HTTP/1.0 500');
-					throw new  \ICE\core\ex\ActionException('parameter validation failed : '.$this->getError(),0);
+					throw new  Exception\ActionException('parameter validation failed : '.$this->getError(),0);
 				}
 			}else{
 				Env::getRoute()->setFrom();
 				//throw new  \ICE\core\Exception('Unauthorized access',0);
 				if (($action = Env::getConfig('auth')->get('login_action'))===false){
-					throw new  \ICE\core\Exception('Unauthorized access and nothing to redirect to',0);
+					throw new  Exception\Exception('Unauthorized access and nothing to redirect to',0);
 				}
 				Env::getRoute()->redirect(Env::getConfig('auth')->get('login_action'),'','',array('error'=>__('Vous n\'avez pas accès à cette page')));
 			}
 		}else{
 			header('HTTP/1.0 500');
-			throw new  \ICE\core\ex\ActionException('unkown method '.$f.' called or route not found',0);
+			throw new  Exception\ActionException('unkown method '.$f.' called or route not found',0);
 		}
 
 	}
