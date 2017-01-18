@@ -204,7 +204,7 @@ class Env{
 			if(Env::getLogger()){
 				Env::getLogger()->log("Loading: ".$name." = " .$path."<br>");
 			}
-			include_once($path.".".ICE_EXT);
+			include_once($path.".php");
 		}
 	}
 
