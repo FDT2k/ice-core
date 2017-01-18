@@ -8,7 +8,7 @@ class Route extends \ConfigManager{
 	protected $appendQS;
 
 	function __construct(){
-		parent::__construct(Env::getFSConfigPath());
+		parent::__construct(Env::getFSConfigPath(), Env::env());
 		$this->setGroup('route');
 		if(!empty($_SESSION['ice_from'])){
 			$this->from=$_SESSION['ice_from'];
