@@ -17,8 +17,8 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "fdt2k/common-libs":"*",
-      
+        "fdt2k/common-libs":"*"
+
 
     }
 }
