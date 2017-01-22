@@ -3,7 +3,7 @@ namespace FDT2k\ICE\CORE\Service;
 use \FDT2k\ICE\CORE\Env as Env;
 use \Firebase\JWT\JWT;
 use \FDT2k\ICE\CORE as ROOT;
-use \FDT2k\ICE\Exception\Exception as Exception;
+use \FDT2k\ICE\CORE\Exception\Exception as Exception;
 
 class UserSessionService extends ROOT\IObject {
 
