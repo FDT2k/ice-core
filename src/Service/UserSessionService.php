@@ -1,6 +1,6 @@
 <?php
 namespace FDT2k\ICE\CORE\Service;
-use \ICE\Env as Env;
+use \FDT2k\ICE\CORE\Env as Env;
 use \Firebase\JWT\JWT;
 
 class UserSessionService extends \ICE\core\IObject {

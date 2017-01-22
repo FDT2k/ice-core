@@ -1,6 +1,6 @@
 <?php
 namespace FDT2k\ICE\CORE\Service;
-use \ICE\Env as Env;
+use \FDT2k\ICE\CORE\Env as Env;
 
 class DBAuthenticationService extends AuthenticationService {
 
