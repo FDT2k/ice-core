@@ -14,9 +14,9 @@
         "psr-4": {
             "FDT2k\\ICE\\CORE\\": "src/"
         },
-        "files": {
+        "files": [
             "src/Core.inc.php"
-        }
+        ]
     },
     "minimum-stability": "dev",
     "require": {
