@@ -1,5 +1,5 @@
 <?php
-namespace ICE\core\service;
+namespace FDT2k\ICE\CORE\Service;
 use \ICE\Env as Env;
 
 class RadiusAuthenticationService extends AuthenticationService {
@@ -21,7 +21,7 @@ class RadiusAuthenticationService extends AuthenticationService {
 	}
 
 	public function fetch_groups($groupdn){
-	
+
 	}
 
 }
