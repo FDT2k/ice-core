@@ -1,6 +1,6 @@
 <?php
 
-namespace ICE\core\response;
+namespace FDT2k\ICE\CORE\Response;
 
 class JSONResponse extends Response{
 
@@ -40,21 +40,21 @@ class JSONResponse extends Response{
 
 	function output(){
 	#var_dump($this->mime);
-		
+
 		$response = $this->build_response();
 		//var_dump($response);
 		$output = json_encode($response);
-		
-		// disable the default profiler output in json output 
+
+		// disable the default profiler output in json output
 		if(\ICE\Env::getProfiler()->isEnabled()){
 			\ICE\Env::getProfiler()->setEnabled(false);
 		}
-		
+
 		if(!$output){
 			throw new \ICE\core\Exception("No output ",0);
 		}else{
 			$this->output_headers();
-			
+
 			echo $output;
 		}
 	}
