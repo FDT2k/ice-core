@@ -3,6 +3,7 @@ namespace FDT2k\ICE\CORE\Service;
 use \FDT2k\ICE\CORE\Env as Env;
 use \Firebase\JWT\JWT;
 use \FDT2k\ICE\CORE as ROOT;
+use \FDT2k\ICE\Exception\Exception as Exception;
 
 class UserSessionService extends ROOT\IObject {
 
@@ -16,8 +17,13 @@ class UserSessionService extends ROOT\IObject {
 	function recover_session(){
 		//$r = Env::getRequest();
 		$key = Env::getConfig("jwt")->get('key');
+
 		$expiration = Env::getConfig("jwt")->get('token_expiration');
 		$cookie_key=   Env::getConfig("jwt")->get('cookie_key');
+
+		if(empty($key) || empty($expiration) || empty($cookie_key)){
+			throw new Exception("critical security failure. Please configure module");
+		}
 		//retrieve user token // priority order -> cookie-> headers
 		$result = false;
 		$token = (isset($_COOKIE[$cookie_key]))? $_COOKIE[$cookie_key] : Env::getRequest()->getToken();
