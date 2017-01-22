@@ -214,7 +214,7 @@ class Env{
 
 		//var_dump($c);
 		//var_dump($c->get('sgbd'));
-		return  \ICE\lib\database\Database::factory('id',
+		return  \FDT2k\Libs\Database::factory('id',
 			$c->get('sgbd').'://'.$c->get('username').':'.$c->get('password').'@'.$c->get('host').'/'.$c->get('database')
 			);
 
