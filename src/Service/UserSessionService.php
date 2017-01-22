@@ -22,7 +22,7 @@ class UserSessionService extends ROOT\IObject {
 		$cookie_key=   Env::getConfig("jwt")->get('cookie_key');
 
 		if(empty($key) || empty($expiration) || empty($cookie_key)){
-			throw new Exception("critical security failure. Please configure module");
+			throw new Exception("critical security failure. Please configure module",00);
 		}
 		//retrieve user token // priority order -> cookie-> headers
 		$result = false;

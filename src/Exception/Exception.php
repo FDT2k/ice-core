@@ -2,6 +2,7 @@
 
 namespace FDT2k\ICE\CORE\Exception;
 
+use \FDT2k\ICE\Core\Env as Env;
 
 class Exception extends \Exception{
 	public function __construct($message,$code,$title=""){
