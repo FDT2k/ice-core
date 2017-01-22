@@ -1,8 +1,8 @@
 <?php
-namespace ICE\core\model;
+namespace FDT2k\ICE\CORE\Model;
 
 
-use \ICE\Env as Env;
+use \FDT2k\ICE\CORE\Env as Env;
 
 class Database extends AbstractModel{
 	public $fieldFilter;

@@ -1,5 +1,5 @@
 <?php
-namespace ICE\core\iface;
+namespace \FDT2k\ICE\CORE\iface;
 
 
 interface UserInterface {
