@@ -29,7 +29,7 @@ class UserSessionService extends ROOT\IObject {
 		$token = (isset($_COOKIE[$cookie_key]))? $_COOKIE[$cookie_key] : Env::getRequest()->getToken();
 
 	//	var_dump($_COOKIE);
-		$decoded = array();
+
 		try{
 
 
@@ -38,7 +38,7 @@ class UserSessionService extends ROOT\IObject {
 			$decoded = array();
 			if(!empty($token)){
 				$decoded = JWT::decode($token, $key, array('HS256'));
-				//var_dump($decoded);
+
 				if($decoded){
 					//authenticated
 					$result = true;
@@ -66,7 +66,8 @@ class UserSessionService extends ROOT\IObject {
 		}finally{
 			if ($result) {
 			//	$this->logout();
-				$this->setDefaultDatas($decoded);
+
+				$this->setDefaultDatas((array)$decoded->data);
 				return true;
 			}
 		}
