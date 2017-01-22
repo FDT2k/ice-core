@@ -2,8 +2,9 @@
 namespace FDT2k\ICE\CORE\Service;
 use \FDT2k\ICE\CORE\Env as Env;
 use \Firebase\JWT\JWT;
+use \FDT2k\ICE\CORE as ROOT;
 
-class UserSessionService extends \ICE\core\IObject {
+class UserSessionService extends ROOT\IObject {
 
 	function __construct(){
 		$this->recover_session();
