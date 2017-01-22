@@ -4,6 +4,7 @@ namespace FDT2k\ICE\CORE;
 
 define('ICE_ENV_PLATFORM_WS_APACHE',"apache");
 define('ICE_ENV_PLATFORM_CLI',"console");
+define('ICE_ENV_FCGI','fpm-fcgi');
 define('ICE_ENV_PLATFORM_UNKOWN',"unkown");
 
 
@@ -62,6 +63,9 @@ class Env{
 			case 'cli':
 				self::$platform = ICE_ENV_PLATFORM_CLI;
 				break;
+			case ICE_ENV_FCGI:
+	self::$platform = ICE_ENV_FCGI;
+				break;
 			default:
 				self::$platform = ICE_ENV_PLATFORM_UNKOWN;
 			break;
@@ -74,7 +78,7 @@ class Env{
 
 
 		//
-		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE){
+		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE || self::$platform==ICE_ENV_FCGI){
 			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
 		}else{ // assuming cli env
 			$o = \getopt("u:");
