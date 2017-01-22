@@ -7,8 +7,8 @@ class DBAuthenticationService extends AuthenticationService {
 	public function	__construct(){
 		if($model = Env::getConfig("auth")->get('user_model')){
 			$this->model = new $model();
-			if(!$this->model instanceOf \ICE\core\iface\UserInterface){
-				throw new \ICE\core\Exception("error, assigned model ".$model." should implements \ICE\core\iface\UserInterface",0,"");
+			if(!$this->model instanceOf  \FDT2k\ICE\CORE\Iface\UserInterface){
+				throw new \ICE\core\Exception("error, assigned model ".$model." should implements  \FDT2k\ICE\CORE\Iface\UserInterface",0,"");
 			}
 		}
 	}
