@@ -42,8 +42,8 @@ class Database extends AbstractModel{
 	}
 
 	function init(){
-
-		if(is_array($this->_modelDef()) && sizeof($this->_modelDef())>0 && is_array($this->_tableDef()) && sizeof($this->_tableDef())){
+		
+		if(is_array($this->_modelDef()) && sizeof($this->_modelDef())>0 && is_array($this->_tableDef()) && sizeof($this->_tableDef()) && Env::getConfig('model')->get('update_schema')){
 			$table = $this->_tableDef();
 			$datas = $this->_modelDef();
 
