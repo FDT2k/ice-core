@@ -14,7 +14,7 @@ class DBAuthenticationService extends AuthenticationService {
 	}
 
 	public function authenticate($login,$password,$opts=array()){
-		$password = sha1($password);
+	//	$password = sha1($password);
 	//	if($user = $this->model->prepareQuery("select * from users where email=:email and password=:password and email_confirmed=1",array('email'=>$login,'password'=>$password))->fetchOne()){
 
 
