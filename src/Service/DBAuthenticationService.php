@@ -16,7 +16,11 @@ class DBAuthenticationService extends AuthenticationService {
 	public function authenticate($login,$password,$opts=array()){
 		$password = sha1($password);
 	//	if($user = $this->model->prepareQuery("select * from users where email=:email and password=:password and email_confirmed=1",array('email'=>$login,'password'=>$password))->fetchOne()){
-		if($user = $this->model->select(array('email'=>$login,'password'=>$password))){
+
+
+	//	if($user = $this->model->select(array('email'=>$login,'password'=>$password))){
+		if($user = $this->model->check_login($login,$password)){
+
 			$user_id = $user[$this->model->getEntity()->onePKName()];
 			Env::getUserSessionService()->create_session(array('uid'=>$user_id,'login'=>$login));
 			return true;
