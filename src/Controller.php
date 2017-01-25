@@ -348,9 +348,9 @@ class Controller extends IObject{
 			}*/
 			if($result){
 				if($this->get->get('redirect')!=""){
-					
+
 					header('Location: '.urldecode($this->get->get('redirect')));
-					die()
+					die();
 				}else{
 					Env::getRoute()->redirectFrom('index');
 				}
