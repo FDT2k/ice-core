@@ -53,7 +53,7 @@ class TranslationBase  extends IObject{
 		$r =setLocale(LC_ALL,$this->getLocale($this->lang).'.UTF8');
 
 		Env::getLogger()->log('current language:'.$this->lang);
-
+		
 	}
 
 	function getLocale($lang){
@@ -75,6 +75,7 @@ class TranslationBase  extends IObject{
 	function init(){
 	//	$this->siteFile = Env::catPath(Env::getFSPath(),Env::getConfig('i18n')->get('translationDirectory'));
 		$this->path = Env::catPath($this->getTranslationDirectory(),$this->lang.".i18n.php");
+
 		//$this->originpath = Env::catPath($this->getTranslationDirectory(),"origin.i18n.php");
 
 		//var_dump($this->path);
