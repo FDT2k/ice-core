@@ -347,7 +347,13 @@ class Controller extends IObject{
 				die();
 			}*/
 			if($result){
-				Env::getRoute()->redirectFrom('index');
+				if($this->get->get('redirect')!=""){
+					
+					header('Location: '.urldecode($this->get->get('redirect')));
+					die()
+				}else{
+					Env::getRoute()->redirectFrom('index');
+				}
 			}else{
 			//	Env::getRoute()->redirectFrom('login','','',array('error'=>'login failed'));
 				$this->response->setError(__('Le nom d\'utilisateur ou le mot de passe est incorrect'));
