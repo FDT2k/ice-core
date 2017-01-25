@@ -177,7 +177,7 @@ class Route extends \ConfigManager{
 			}
 		}
 		$qs = $this->getQS($info,$querystring);
-		$this->appendQS = true;
+		$this->appendQS = false;
 //		var_dump($action,$module,$bundle);
 		return $this->short($action,$module,$bundle).$qs;
 	}
