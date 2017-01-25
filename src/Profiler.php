@@ -2,6 +2,7 @@
 
 namespace FDT2k\ICE\CORE;
 
+use \FDT2k\ICE\CORE\Env as Env;
 
 class Profiler extends IObject{
 
@@ -35,13 +36,13 @@ class Profiler extends IObject{
 	//var_export(self::getProfiler());
 
 			}
-			$post =(\ICE\Env::$post->getDatas());
+			$post =(Env::$post->getDatas());
 			$this->setEnv(Env::$env);
 			$this->setPost(var_export($post,true));
-			$get =(\ICE\Env::$get->getDatas());
+			$get =(Env::$get->getDatas());
 			$this->setGet(var_export($get,true));
-			$this->setExecTime(\ICE\Env::getLogger()->total_time." ms");
-			$this->setLogs(\ICE\Env::getLogger()->dump());
+			$this->setExecTime(Env::getLogger()->total_time." ms");
+			$this->setLogs(Env::getLogger()->dump());
 			// /$this->setAuth(\ICE\Env::getAuthService()->is_logged(). " ".\ICE\Env::getUserSessionService()->getToken());
 
 
@@ -109,7 +110,7 @@ class Profiler extends IObject{
 					if($key == 'logs'){
 						if(is_array($value)){
 							foreach($value as $group => $log){
-								echo "<li class=\"grouplog\">".$group." (".\ICE\Env::getLogger()->category_times[$group]." ms)<ul>";
+								echo "<li class=\"grouplog\">".$group." (".Env::getLogger()->category_times[$group]." ms)<ul>";
 								foreach ($log as $l){
 									echo "<li class=\"log\" rel=\"$group\"><b>[".$l['timer']."] [".$l['total_time']."]</b>".$l['string'];
 									if(is_array($l['backtrace'])){
