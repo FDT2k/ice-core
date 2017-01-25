@@ -1,7 +1,7 @@
 <?php
 
 namespace FDT2k\ICE\CORE\Response;
-
+use \FDT2k\ICE\CORE\Env as Env;
 class JSONResponse extends Response{
 
 	var $mime = 'application/json';
@@ -46,12 +46,12 @@ class JSONResponse extends Response{
 		$output = json_encode($response);
 
 		// disable the default profiler output in json output
-		if(\ICE\Env::getProfiler()->isEnabled()){
-			\ICE\Env::getProfiler()->setEnabled(false);
+		if(Env::getProfiler()->isEnabled()){
+			Env::getProfiler()->setEnabled(false);
 		}
 
 		if(!$output){
-			throw new \ICE\core\Exception("No output ",0);
+			throw new \FDT2k\ICE\CORE\Exception("No output ",0);
 		}else{
 			$this->output_headers();
 
