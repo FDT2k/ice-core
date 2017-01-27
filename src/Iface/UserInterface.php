@@ -1,5 +1,5 @@
 <?php
-namespace FDT2k\Noctis\Core\iface;
+namespace FDT2k\Noctis\Core\Iface;
 
 
 interface UserInterface {

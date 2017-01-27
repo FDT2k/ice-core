@@ -15,7 +15,7 @@
             "FDT2k\\Noctis\\Core\\": "src/"
         },
         "files": [
-            "src/Core.inc.php"
+            "src/Flat.php"
         ]
     },
     "minimum-stability": "dev",
