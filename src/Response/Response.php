@@ -1,5 +1,5 @@
 <?php
-namespace FDT2k\ICE\CORE\Response;
+namespace FDT2k\Noctis\Core\Response;
 
 class Response extends  \FDT2k\ICE\CORE\IObject{
 

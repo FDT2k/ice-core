@@ -1,4 +1,4 @@
-<?php namespace FDT2K\ICE\CORE;
+<?php namespace FDT2k\Noctis\Core;
 
 class IObject{
 	/**

@@ -1,8 +1,8 @@
 <?php
 
-namespace FDT2k\ICE\CORE\Exception;
+namespace FDT2k\Noctis\Core\Exception;
 
-use \FDT2k\ICE\Core\Env as Env;
+use \FDT2k\Noctis\Core\Env as Env;
 
 class Exception extends \Exception{
 	public function __construct($message,$code,$title=""){

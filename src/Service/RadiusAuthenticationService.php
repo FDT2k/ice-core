@@ -1,5 +1,5 @@
 <?php
-namespace FDT2k\ICE\CORE\Service;
+namespace FDT2k\Noctis\Core\Service;
 use \ICE\Env as Env;
 
 class RadiusAuthenticationService extends AuthenticationService {

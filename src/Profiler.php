@@ -1,8 +1,8 @@
 <?php
 
-namespace FDT2k\ICE\CORE;
+namespace FDT2k\Noctis\Core;
 
-use \FDT2k\ICE\CORE\Env as Env;
+use \FDT2k\Noctis\Core\Env as Env;
 
 class Profiler extends IObject{
 

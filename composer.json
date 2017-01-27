@@ -1,5 +1,5 @@
 {
-    "name": "fdt2k/ice-core",
+    "name": "fdt2k/noctis-framework",
     "version":"1.0",
     "description": "ICE Framework Core",
     "license": "BSD-3-Clause-Attribution",
@@ -12,7 +12,7 @@
 
     "autoload": {
         "psr-4": {
-            "FDT2k\\ICE\\CORE\\": "src/"
+            "FDT2k\\Noctis\\Core\\": "src/"
         },
         "files": [
             "src/Core.inc.php"

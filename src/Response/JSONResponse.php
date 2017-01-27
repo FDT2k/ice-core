@@ -1,7 +1,7 @@
 <?php
 
-namespace FDT2k\ICE\CORE\Response;
-use \FDT2k\ICE\CORE\Env as Env;
+namespace FDT2k\Noctis\Core\Response;
+use \FDT2k\Noctis\Core\Env as Env;
 class JSONResponse extends Response{
 
 	var $mime = 'application/json';

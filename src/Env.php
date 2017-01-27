@@ -1,6 +1,6 @@
 <?php
 
-namespace FDT2k\ICE\CORE;
+namespace FDT2k\Noctis\Core;
 
 define('ICE_ENV_PLATFORM_WS_APACHE',"apache");
 define('ICE_ENV_PLATFORM_CLI',"console");

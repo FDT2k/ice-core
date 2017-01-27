@@ -1,6 +1,6 @@
 <?php
-namespace FDT2k\ICE\CORE\Service;
-use \FDT2k\ICE\CORE\Env as Env;
+namespace FDT2k\Noctis\Core\Service;
+use \FDT2k\Noctis\Core\Env as Env;
 
 class DBAuthenticationService extends AuthenticationService {
 

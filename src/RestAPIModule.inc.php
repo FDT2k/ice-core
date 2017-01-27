@@ -1,5 +1,5 @@
 <?php
-namespace FDT2K\ICE\CORE;
+namespace FDT2k\Noctis\Core;
 
 use \ICE\Env as Env;
 use \ICE\lib\helpers\Hash as Hash;

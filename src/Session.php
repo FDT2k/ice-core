@@ -1,5 +1,5 @@
 <?php
-namespace FDT2k\ICE\CORE;
+namespace FDT2k\Noctis\Core;
 
 class Session implements \SessionHandlerInterface{
 	public  $session;

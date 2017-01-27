@@ -1,6 +1,6 @@
 <?php
 
-namespace FDT2k\ICE\CORE\Exception;
+namespace FDT2k\Noctis\Core\Exception;
 
 use \ICE\Env as Env;
 
