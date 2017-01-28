@@ -1,6 +1,6 @@
 <?php namespace FDT2k\Noctis\Core;
 
-class \IObject{
+class IObject{
 	/**
 	 *
 	 * @access protected
