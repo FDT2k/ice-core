@@ -423,7 +423,7 @@ class Env{
 	}
 
 	public static function getCachePath($folder=''){
-		$path= Env::getFSPath()."/caches/".$folder;
+		$path= Env::getFSPath()."/var/caches/".$folder;
 		if(!file_exists($path)){
 			mkdir($path,0777,true);
 
