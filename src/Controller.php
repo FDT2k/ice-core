@@ -3,7 +3,7 @@ namespace FDT2k\Noctis\Core;
 
 
 use FDT2k\Helpers\Hash as Hash;
-class Controller extends IObject{
+class Controller extends \IObject{
 	protected $renderer; // render
 	protected $preventRender=false;
 

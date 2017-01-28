@@ -7,7 +7,7 @@ namespace ICE\core\cli;
 	leaving out php option parser
 */
 
-class OptionsParser extends \ICE\core\iObject{
+class OptionsParser extends \IObject{
 
 
 	function parse($input=false){

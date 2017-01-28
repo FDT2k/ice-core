@@ -4,7 +4,7 @@ namespace FDT2k\Noctis\Core;
 
 use \FDT2k\Helpers as h;
 
-class Router extends IObject{
+class Router extends \IObject{
 
 	function match(){
 		$match = false;

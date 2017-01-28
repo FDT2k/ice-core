@@ -4,7 +4,7 @@ namespace FDT2k\Noctis\Core;
 
 
 
-class HistoryItem extends IObject{
+class HistoryItem extends \IObject{
 
 }
 

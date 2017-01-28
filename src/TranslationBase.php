@@ -3,7 +3,7 @@ namespace FDT2k\Noctis\Core;
 
 
 
-class TranslationBase  extends IObject{
+class TranslationBase  extends \IObject{
 	public $translations;
 
 	function __construct($lang=null){

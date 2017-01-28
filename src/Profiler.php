@@ -4,7 +4,7 @@ namespace FDT2k\Noctis\Core;
 
 use \FDT2k\Noctis\Core\Env as Env;
 
-class Profiler extends IObject{
+class Profiler extends \IObject{
 
 	#public static function
 

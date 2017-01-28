@@ -1,7 +1,7 @@
 <?php
 namespace FDT2k\Noctis\Core\Response;
 
-class Response extends  \FDT2k\Noctis\Core\IObject{
+class Response extends  \IObject{
 
 	var $mime = 'text/html';
 	#public $response_code = 200;

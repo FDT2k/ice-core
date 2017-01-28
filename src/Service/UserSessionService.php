@@ -5,7 +5,7 @@ use \Firebase\JWT\JWT;
 use \FDT2k\Noctis\Core as ROOT;
 use \FDT2k\Noctis\Core\Exception\Exception as Exception;
 
-class UserSessionService extends ROOT\IObject {
+class UserSessionService extends \IObject {
 
 	function __construct(){
 		$this->recover_session();
