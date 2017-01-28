@@ -2,7 +2,7 @@
 
 
 function __($string){
-	if($translator = \FDT2k\ICE\CORE\Env::getTranslator()){
+	if($translator = \FDT2k\Noctis\Core\Env::getTranslator()){
 		return $translator->getTranslation($string);
 	}else{
 		return $string;

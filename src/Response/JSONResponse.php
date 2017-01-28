@@ -51,7 +51,7 @@ class JSONResponse extends Response{
 		}
 
 		if(!$output){
-			throw new \FDT2k\ICE\CORE\Exception("No output ",0);
+			throw new \FDT2k\Noctis\Core\Exception("No output ",0);
 		}else{
 			$this->output_headers();
 
