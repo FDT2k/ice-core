@@ -27,3 +27,18 @@ function isEmpty($val) {
 	}
 	return empty($val) && $val !== 0 && $val !=="0";
 }
+
+
+
+function array_form_to_assoc($data,$refkey){
+	$new_array = array();
+
+	$keys = array_keys($data);
+
+	foreach($data[$refkey] as $index => $value){
+		foreach($keys as $key){
+			$new_array[$key]= $data[$key][$index];
+		}
+	}
+	return $new_array;
+}
