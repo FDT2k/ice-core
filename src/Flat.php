@@ -36,9 +36,13 @@ function array_form_to_assoc($data,$refkey){
 	$keys = array_keys($data);
 
 	foreach($data[$refkey] as $index => $value){
+		$item = array();
 		foreach($keys as $key){
-			$new_array[$key]= $data[$key][$index];
+			$item[$key]= $data[$key][$index];
 		}
+		$new_array[] = $item;
+		
 	}
+
 	return $new_array;
 }
