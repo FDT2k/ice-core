@@ -162,7 +162,9 @@ class Env{
 
 			session_set_save_handler(self::$session, true);
 		}
-		session_start();
+		if(self::$platform == ICE_ENV_PLATFORM_CLI){
+			session_start();
+		}
 		self::$route = new Route();
 		self::$router = new Router();
 		self::$session->init();
