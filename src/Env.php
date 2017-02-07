@@ -72,7 +72,7 @@ class Env{
 		}
 
 		if(self::$platform == ICE_ENV_PLATFORM_CLI){
-			self::$options = new FDT2k\Noctis\Core\Cli\OptionsParser();
+			self::$options = new \FDT2k\Noctis\Core\Cli\OptionsParser();
 			self::$options->parse($argv);
 		}
 
