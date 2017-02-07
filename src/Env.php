@@ -72,7 +72,7 @@ class Env{
 		}
 
 		if(self::$platform == ICE_ENV_PLATFORM_CLI){
-			self::$options = new \ICE\core\cli\OptionsParser();
+			self::$options = new FDT2k\Noctis\Core\Cli\OptionsParser();
 			self::$options->parse($argv);
 		}
 
@@ -208,7 +208,7 @@ class Env{
 			if(Env::getLogger()){
 				Env::getLogger()->log("Loading: ".$name." = " .$path."<br>");
 			}
-			include_once($path.".php");
+			@include_once($path.".php");
 		}
 	}
 

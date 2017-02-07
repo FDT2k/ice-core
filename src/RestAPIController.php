@@ -1,15 +1,7 @@
 <?php
 namespace FDT2k\Noctis\Core;
 
-use \ICE\Env as Env;
-use \ICE\lib\helpers\Hash as Hash;
-use \ICE\lib\helpers\MP3File as MP3File;
-use \ICE\lib\helpers\HTTP as HTTP;
-use \ICE\lib\scaffolding as scaff;
-use \ICE\lib\helpers\Formatter as Formatter;
-use \ICE\lib\helpers\CachedWebserviceFetcher as CachedWebserviceFetcher;
-
-class RestAPIModule extends \ICE\core\Module{
+class RestAPIModule extends Controller{
 
 	function getModelUser(){
 		return new \ICE\core\model\JWTUser();

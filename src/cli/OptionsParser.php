@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ICE\core\cli;
+namespace FDT2k\Noctis\Core\Cli;
 
 /*
 	leaving out php option parser
