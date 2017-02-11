@@ -23,10 +23,10 @@ class Front {
 
     			$m->run();
     		}else{
-    			throw new  Exception("Class \".".$class."\" not found",0);
+    			throw new  \Exception("Class \".".$class."\" not found",0);
     		}
     	}else{
-    		throw new  Exception("No Route found",0);
+    		throw new  \Exception("No Route found",0);
     	}
 
     	Env::getLogger()->endLog('page');
@@ -37,7 +37,7 @@ class Front {
     }catch(\FDT2k\Libs\DatabaseException $e){
     	echo "Database Error: ".$e;
     	die();
-    }catch(Exception $e){
+    }catch(\Exception $e){
     	var_dump($e);
     	if(Env::getConfig('core')->get('allow_create_missing_path')){
     		echo "<a href='".Env::getRoute()->link('createMissingPath','scaffolder','dev',array('uri'=>urlencode(Env::getURI()->pathAsString())))."'>create it</a>";

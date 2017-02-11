@@ -19,9 +19,12 @@ class DBAuthenticationService extends AuthenticationService {
 
 
 	//	if($user = $this->model->select(array('email'=>$login,'password'=>$password))){
+
 		if($user = $this->model->check_login($login,$password)){
 
-			$user_id = $user[$this->model->getEntity()->onePKName()];
+
+			$user_id = $user->getPrimaryKey();
+			//var_dump($user_id);
 			Env::getUserSessionService()->create_session(array('uid'=>$user_id,'login'=>$login));
 			return true;
 		}
