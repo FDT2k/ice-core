@@ -210,7 +210,9 @@ class Env{
 			if(Env::getLogger()){
 				Env::getLogger()->log("Loading: ".$name." = " .$path."<br>");
 			}
-			@include_once($path.".php");
+			if(file_exists($path.".php")){
+				include_once($path.".php");
+			}
 		}
 	}
 
