@@ -51,4 +51,19 @@ class ServiceManager
     }
   }
 
+  static function triggerBeforeController($controller){
+    foreach(self::$services as $service){
+      if(method_exists($service,'runBeforeControllerExec')){
+        $service->runBeforeControllerExec($controller);
+      }
+    }
+  }
+  static function triggerAfterController($controller){
+    foreach(self::$services as $service){
+      if(method_exists($service,'runAfterControllerExec')){
+        $service->runAfterControllerExec($controller);
+      }
+    }
+  }
+
 }

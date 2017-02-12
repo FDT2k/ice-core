@@ -19,9 +19,11 @@ class Front {
     		$class = "\\".$route->getBundle()."\\controller\\".ucFirst($route->getModule());
     		Env::getRoute()->bundle = $route->getBundle();
     		if(class_exists($class)){
-    			$m = new $class($route->getAction());
 
+    			$m = new $class($route->getAction());
+          \FDT2k\Noctis\Core\Service\ServiceManager::triggerBeforeController($m);
     			$m->run();
+          \FDT2k\Noctis\Core\Service\ServiceManager::triggerAfterController($m);
     		}else{
     			throw new  \Exception("Class \".".$class."\" not found",0);
     		}
