@@ -39,7 +39,7 @@ class Env{
 		self::$profiler = new Profiler;
 
 		//Doing some php configuration
-		register_shutdown_function('FDT2k\Noctis\Core\Env::shutdown');
+		register_shutdown_function(__NAMESPACE__ .'\Env::shutdown');
 		ini_set('output_buffering','0');
 		ini_set('error_reporting','E_ALL');
 		error_reporting( E_ALL & ~E_NOTICE &~E_STRICT);
