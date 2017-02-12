@@ -36,7 +36,7 @@ class Env{
 
 	public static function preinit($argv){
 		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
-		self::$profiler = new Profiler;
+		//self::$profiler = new Profiler;
 
 		//Doing some php configuration
 		register_shutdown_function(__NAMESPACE__ .'\Env::shutdown');
@@ -64,7 +64,7 @@ class Env{
 				self::$platform = ICE_ENV_PLATFORM_CLI;
 				break;
 			case ICE_ENV_FCGI:
-	self::$platform = ICE_ENV_FCGI;
+				self::$platform = ICE_ENV_FCGI;
 				break;
 			default:
 				self::$platform = ICE_ENV_PLATFORM_UNKOWN;
@@ -136,14 +136,14 @@ class Env{
 		}else{
 			define('ICE_WEB_WS_PATH',DEFAULT_ICE_WEB_WS_PATH);
 		}
-		$profiler =self::getConfig('core')->get('profiler',true);
+		/*$profiler =self::getConfig('core')->get('profiler',true);
 #var_dump($profiler);
 
 		if(!empty($profiler)){
 			self::getProfiler()->setEnabled(true);
 		}else{
 			self::getProfiler()->setEnabled(false);
-		}
+		}*/
 
 	}
 
@@ -194,7 +194,8 @@ class Env{
 
 	public static function shutdown(){
 
-		self::getProfiler()->render();
+		\FDT2k\Noctis\Core\Service\ServiceManager::triggerShutdown();
+		//self::getProfiler()->render();
 
 	}
 
@@ -357,9 +358,9 @@ class Env{
 		return self::$request;
 	}
 
-	public static function getProfiler(){
+	/*public static function getProfiler(){
 		return self::$profiler;
-	}
+	}*/
 	public static function getURI(){
 
 		return self::$uri;
@@ -545,8 +546,6 @@ class Env{
 
 	}
 
-
-
 	public static function assertParams($assertion,$params){
 		$result = true;
 		foreach($assertion as $field=>$condition){
@@ -556,4 +555,5 @@ class Env{
 		}
 		return $result;
 	}
+
 }

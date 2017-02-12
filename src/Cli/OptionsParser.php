@@ -29,7 +29,7 @@ class OptionsParser extends \IObject{
 					 continue;
 			 }
 
-			 var_dump($arg);
+			 //var_dump($arg);
 			 // long option, short option, or numeric argument?
 			 if (! $done && strpos($arg, '--') === 0) {
 				 	$arg = substr($arg,2);
