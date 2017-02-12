@@ -1,7 +1,7 @@
 <?php
-
+namespace FDT2k\Noctis\Core;
 use FDT2k\Noctis\Core\Env ;
-
+use FDT2k\Noctis\Core\Service as CoreService;
 class NoctisBoot
 {
 
@@ -12,7 +12,7 @@ class NoctisBoot
 			if(!isset($argv)){
 				$argv=array();
 			}
-
+			CoreService\ServiceManager::triggerBoot();
 		  #Env::getConfig();
 			Env::preinit($argv);
 			Env::init($argv);
