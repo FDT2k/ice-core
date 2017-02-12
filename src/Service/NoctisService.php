@@ -6,20 +6,32 @@ class NoctisService
 
 {
 
- function runOnAutoload($name){}
+//loading function, ordered by priority
 
- function runOnFrameworkInit(){}
+// is ran before framework Initialization. At boot Environmnent is not initialized yet
+  function runBeforeInit(){}
 
- function runOnFrameworkExits(){}
+// is ran after Env::preinit(). Config is already available
+  function runAfterFrameworkPreInit(){}
 
- function runOnShutdown(){}
+// is ran after Env::init()  Config available and Full env.
+  function runAfterFrameworkInit(){}
 
- function runBeforeControllerExec($controller){}
+//controller is instanciated and is about to be run
+  function runBeforeControllerExec($controller){}
 
- function runAfterControllerExec($controller){}
+// controller has finished
+  function runAfterControllerExec($controller){}
 
- // is ran before framework Initialization. At boot
- function runBeforeInit(){}
+// Framework has finished
+  function runOnFrameworkExits(){}
+
+// PHp is shutdowning for any reason
+  function runOnShutdown(){}
+
+// PHP spl_autoload
+  function runOnAutoload($name){}
+
 
 
 }
