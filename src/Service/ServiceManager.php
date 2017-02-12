@@ -27,7 +27,20 @@ class ServiceManager
       }
     }
   }
-
+  static function triggerAfterPreinit(){
+    foreach(self::$services as $service){
+      if(method_exists($service,'runAfterFrameworkPreInit')){
+        $service->runBeforeInit();
+      }
+    }
+  }
+  static function triggerAfterInit(){
+    foreach(self::$services as $service){
+      if(method_exists($service,'runAfterFrameworkInit')){
+        $service->runBeforeInit();
+      }
+    }
+  }
 
 
 }

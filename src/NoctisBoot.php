@@ -15,7 +15,9 @@ class NoctisBoot
 			\FDT2k\Noctis\Core\Service\ServiceManager::triggerBoot();
 		  #Env::getConfig();
 			Env::preinit($argv);
+			\FDT2k\Noctis\Core\Service\ServiceManager::triggerAfterPreinit();
 			Env::init($argv);
+			\FDT2k\Noctis\Core\Service\ServiceManager::triggerAfterInit();
 			#ICE\Env::init($argv);
 
 		}catch(ICEException $e){
