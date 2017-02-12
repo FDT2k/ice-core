@@ -21,7 +21,6 @@ class ServiceManager
   }
 
   static function triggerBoot(){
-      var_dump('test');
     foreach(self::$services as $service){
       if(method_exists($service,'runBeforeInit')){
         $service->runBeforeInit();

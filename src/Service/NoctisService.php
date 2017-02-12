@@ -2,7 +2,7 @@
 namespace FDT2k\Noctis\Core\Service;
 use \FDT2k\Noctis\Core\Env as Env;
 
-class NoctisServiceInterface
+class NoctisService
 
 {
 
