@@ -45,10 +45,6 @@ class JSONResponse extends Response{
 		//var_dump($response);
 		$output = json_encode($response);
 
-		// disable the default profiler output in json output
-		if(Env::getProfiler()->isEnabled()){
-			Env::getProfiler()->setEnabled(false);
-		}
 
 		if(!$output){
 			throw new \FDT2k\Noctis\Core\Exception("No output ",0);
