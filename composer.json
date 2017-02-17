@@ -21,6 +21,7 @@
     "minimum-stability": "dev",
     "require": {
         "fdt2k/baseobject":"*",
+        "fdt2k/configmanager":"*",
         "fdt2k/common-libs":"*"
 
 
@@ -29,6 +30,10 @@
       {
           "type": "vcs",
           "url": "https://git.geekagency.ch/FDT2k/phplibs.git"
+      },
+      {
+          "type": "vcs",
+          "url": "https://git.geekagency.ch/FDT2k/config-manager.git"
       },
 
         {

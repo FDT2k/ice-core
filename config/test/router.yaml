@@ -1,0 +1,106 @@
+default_route:
+	rules:
+		pattern: //$
+
+	route:
+		bundle: app
+		controller: base
+		action: index
+
+rest_ticket:
+	rules:
+		pattern: /api/tickets/?
+		method: POST
+
+	route:
+		bundle: app
+		controller: Tickets
+		action: add
+
+rest_ticket_update:
+	rules:
+		pattern: /api/tickets/:ticket_id
+		method: POST | PUT
+
+	route:
+		bundle: app
+		controller: Tickets
+		action: update
+
+rest_ticket_erase:
+	rules:
+		pattern: /api/tickets/:ticket_id
+		method: DELETE
+
+	route:
+		bundle: app
+		controller: Tickets
+		action: delete
+
+rest_ticket_fetch:
+	rules:
+		pattern: /api/tickets/:ticket_id
+		method: GET
+
+	route:
+		bundle: app
+		controller: Tickets
+		action: fetch
+
+rest_ticket_listing:
+	rules:
+		pattern: /api/tickets/? # /? is optional character
+		method: GET
+
+	route:
+		bundle: app
+		controller: Tickets
+		action: fetchAll
+
+#testing variables, allowing to do wildcard REST for example
+
+testcrud:
+	rules:
+		pattern: /api/:controller/? # /? is optional character
+		method: GET
+
+	route:
+		bundle: app
+		controller: %controller%
+		action: fetchAll
+
+
+testcrud_2:
+	rules:
+		pattern: /api/:controller/:id? # /? is optional character
+		method: GET
+
+	route:
+		bundle: app
+		controller: %controller%
+		action: view
+
+
+
+api2redirect:
+
+	rules:
+		pattern: /api/v2/:controller/:id? # /? is optional character
+		method: GET
+
+	route:
+		bundle: appV2
+		controller: %controller%
+		action: view
+
+
+api2redirect2:
+
+	rules:
+		pattern: /api/:rev/:controller/:id? # /? is optional character
+		method: GET
+
+	route:
+		bundle: app%rev
+		controller: %controller%
+		action: view

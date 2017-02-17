@@ -1,15 +1,15 @@
 <?php
 namespace FDT2k\Noctis\Core;
 
-class RestAPIModule extends Controller{
+class RestController extends Controller{
 
 
 
-	function publicAccess(){
-		return Env::getRequest()->getMethod() == "OPTIONS" ||$this->action == "_authenticate" || $this->action == '_register';
+	protected function publicAccess(){
+		return Env::getRequest()->getMethod() == "OPTIONS" || $this->action == "_authenticate" || $this->action == '_register';
 	}
 
-	function beforeActionRun($action){
+	protected function beforeActionRun($action){
 
 			$this->is_logged = Env::getAuthService()->is_logged();
 
@@ -20,13 +20,13 @@ class RestAPIModule extends Controller{
 
 	}
 
-	function initResponse(){
+	protected function initResponse(){
 		$this->response = new Response\JSONResponse();
 	}
 
 
 
-	function assertMethodAllowed($array){
+	protected function assertMethodAllowed($array){
 		if (!in_array(Env::getRequest()->getMethod(), $array) && Env::getRequest()->getMethod() != "OPTIONS"){
 			$this->response->setResponseCode(405);
 			$this->response->setError("Method Not Allowed");

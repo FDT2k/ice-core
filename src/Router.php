@@ -6,11 +6,15 @@ use \FDT2k\Helpers as h;
 
 class Router extends \IObject{
 
-	function match(){
+	function match($uri = ''){
 		$match = false;
-		$uri = Env::getRequest()->getURI();
+		if(empty($uri)){
+			$uri = Env::getRequest()->getURI();
+		}
 		$keys = Env::getConfig('router')->getKeys();
 		$allowed_bundles = Env::getConfig('router')->get('allowed_bundles');
+		$lazyCheck = Env::getConfig('router')->get('lazy'); // lazy check stop at the first match
+		$matched_rule = false;
 		foreach ( $keys as $route_name =>$route){
 			$route = Env::getConfig('router')->get($route);
 			$regexp = $route['rules']['pattern'];
@@ -21,17 +25,18 @@ class Router extends \IObject{
 			preg_match_all($match_var, $regexp, $matches);
 
 
-			//generating the regex to match the uri;
+			//generating the regex to match against the uri;
 
 			if($regexp[0]=="/"){
 				$regexp ="^".substr($regexp, 1);
 			}
 			$regexp = str_replace("/","\/",$regexp);
-			$regexp = "/".$regexp."/";
+			$regexp = "/".$regexp."$/";
+
 			if(is_array($matches[0])){
 				foreach ($matches[0] as $m){
 					$name = str_replace(":","",$m);
-					$regexp = str_replace($m,"(?P<$name>[a-z0-9_]*)",$regexp);
+					$regexp = str_replace($m,"(?P<$name>[A-Za-z0-9_]*)",$regexp);
 				}
 			}
 
@@ -43,7 +48,7 @@ class Router extends \IObject{
 			}else{
 				$fqdn_match = false;
 			}
-
+			// no fqdn match
 			if (empty($fqdn_pattern) || $fqdn_pattern == '*'){
 
 				$fqdn_match = true;
@@ -51,11 +56,10 @@ class Router extends \IObject{
 			}
 
 			//match against the uri
-		//var_dump($fqdn_match,$fqdn_pattern);
 			if($fqdn_match){
-					//var_dump($regexp,$uri->hostname,$r);
-
+//var_dump(preg_match_all($regexp, $uri->baseurl, $result),$regexp,$uri->baseurl);
 				if(preg_match_all($regexp, $uri->baseurl, $result)){
+
 					//matching against the method, empty method assumes all methods
 					if(strpos($method, Env::getRequest()->getMethod()) !== false || empty($method)) {
 						// apply variables
@@ -65,12 +69,19 @@ class Router extends \IObject{
 								$name = str_replace(":","",$m);
 								$value = $result[$name][0];
 								$var[$name]=$value;
+								//apply variable results to route // variable prefix is %
+								foreach($r as $key => $route_value){
+									if(strpos($route_value,'%'.$name.'%')!==false){ // route item value is matching a var name
+										$r[$key]=str_replace('%'.$name.'%',$value,$route_value);
+									}
+								}
 							}
 
 							$this->setVariables($var);
 						}
 						$match = true;
 						$this->setRouteName($route_name);
+
 						if(is_array($r)){
 
 							$this->setBundle($r['bundle']);
@@ -79,7 +90,11 @@ class Router extends \IObject{
 
 							$this->setAction($r['action']);
 						}
-						break;
+
+
+							break;
+					
+
 					}
 				}
 			}

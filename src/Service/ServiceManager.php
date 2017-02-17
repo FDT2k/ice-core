@@ -7,62 +7,74 @@ class ServiceManager
 {
   static $services;
 
-  static function registerService($instance,$before=''){
+  static function registerService($instance){
     self::$services[]=$instance;
   }
 
   static function triggerAutoload($name){
-
-    foreach(self::$services as $service){
-      if(method_exists($service,'runOnAutoload')){
-        $service->runOnAutoload($name);
+    if(is_array(self::$services)){
+      foreach(self::$services as $service){
+        if(method_exists($service,'runOnAutoload')){
+          $service->runOnAutoload($name);
+        }
       }
     }
   }
 
   static function triggerBoot(){
-    foreach(self::$services as $service){
-      if(method_exists($service,'runBeforeInit')){
-        $service->runBeforeInit();
+    if(is_array(self::$services)){
+      foreach(self::$services as $service){
+        if(method_exists($service,'runBeforeInit')){
+          $service->runBeforeInit();
+        }
       }
     }
   }
   static function triggerAfterPreinit(){
-
-    foreach(self::$services as $service){
-      if(method_exists($service,'runAfterFrameworkPreInit')){
-        $service->runAfterFrameworkPreInit();
+    if(is_array(self::services)){
+      foreach(self::$services as $service){
+        if(method_exists($service,'runAfterFrameworkPreInit')){
+          $service->runAfterFrameworkPreInit();
+        }
       }
     }
   }
   static function triggerAfterInit(){
-    foreach(self::$services as $service){
-      if(method_exists($service,'runAfterFrameworkInit')){
-        $service->runAfterFrameworkInit();
+    if(is_array(self::$services)){
+      foreach(self::$services as $service){
+        if(method_exists($service,'runAfterFrameworkInit')){
+          $service->runAfterFrameworkInit();
+        }
       }
     }
   }
 
   static function triggerShutdown(){
-    foreach(self::$services as $service){
-      if(method_exists($service,'runOnShutdown')){
-        $service->runOnShutdown();
+    if(is_array(self::$services)){
+      foreach(self::$services as $service){
+        if(method_exists($service,'runOnShutdown')){
+          $service->runOnShutdown();
+        }
       }
     }
   }
 
   static function triggerBeforeController($controller){
+    if(is_array(self::$services)){
     foreach(self::$services as $service){
       if(method_exists($service,'runBeforeControllerExec')){
         $service->runBeforeControllerExec($controller);
       }
     }
+    }
   }
   static function triggerAfterController($controller){
+    if(is_array(self::$services)){
     foreach(self::$services as $service){
       if(method_exists($service,'runAfterControllerExec')){
         $service->runAfterControllerExec($controller);
       }
+    }
     }
   }
 
