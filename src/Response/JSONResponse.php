@@ -19,7 +19,7 @@ class JSONResponse extends Response{
 		if($this->isApiMode()){
 			$response = array();
 			$response['result']	=	!$this->hasError();
-			$response['data']=$this->data;
+			$response['data']=$this->getData();
 			$response['error']=$this->error_message;
 			$response['error_code']= $this->error_code;
 			return $response;

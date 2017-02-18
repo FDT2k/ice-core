@@ -31,7 +31,7 @@ class ServiceManager
     }
   }
   static function triggerAfterPreinit(){
-    if(is_array(self::services)){
+    if(is_array(self::$services)){
       foreach(self::$services as $service){
         if(method_exists($service,'runAfterFrameworkPreInit')){
           $service->runAfterFrameworkPreInit();
