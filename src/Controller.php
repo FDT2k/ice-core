@@ -117,15 +117,21 @@ class Controller extends \IObject{
 		if(method_exists($this,$f.'Action') || method_exists($this,Env::getConfig()->get('wildcardAction'))){
 			if($this->check_access()){
 				if($this->assert_params()){
+					$preProcessingResponse = NULL;
 					if(method_exists($this,'beforeActionRun')){
 					//	var_dump('test');
-						$this->beforeActionRun($this->action);
+						$preProcessingResponse = $this->beforeActionRun($this->action);
+						//if we got a response from beforeActionRun, we stop the following execution.
+
 					}
+					if(NULL==$preProcessingResponse){
+						$this->response = $this->$f();
 
-					$this->response = $this->$f();
-
-					if(method_exists($this,'afterActionRun') ){
-						$this->afterActionRun($this->action,$this->response);
+						if(method_exists($this,'afterActionRun') ){
+							$this->afterActionRun($this->action,$this->response);
+						}
+					}else{
+						$this->response = $preProcessingResponse;
 					}
 
 					if($this->response && is_a($this->response,'\FDT2k\Noctis\Core\Response\Response') ){

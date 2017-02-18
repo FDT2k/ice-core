@@ -16,6 +16,7 @@ class RestController extends Controller{
 			if(!$this->is_logged && !$this->publicAccess()){
 				$this->response->setResponseCode(401);
 				$this->response->setError("unauthorized access");
+				return $this->response;
 			}
 
 	}
