@@ -6,17 +6,25 @@ use \FDT2k\Helpers as h;
 
 class Router extends \IObject{
 
+	function __construct($group = 'router'){
+
+		$this->configGroup = $group;
+	}
+
 	function match($uri = ''){
 		$match = false;
 		if(empty($uri)){
 			$uri = Env::getRequest()->getURI();
 		}
-		$keys = Env::getConfig('router')->getKeys();
-		$allowed_bundles = Env::getConfig('router')->get('allowed_bundles');
-		$lazyCheck = Env::getConfig('router')->get('lazy'); // lazy check stop at the first match
+		$config_group = $this->configGroup;
+
+		$keys = Env::getConfig($config_group)->getKeys();
+
+		$allowed_bundles = Env::getConfig($config_group)->get('allowed_bundles');
+		$lazyCheck = Env::getConfig($config_group)->get('lazy'); // lazy check stop at the first match
 		$matched_rule = false;
-		foreach ( $keys as $route_name =>$route){
-			$route = Env::getConfig('router')->get($route);
+		foreach ( $keys as $route_idx =>$route_name){
+			$route = Env::getConfig($config_group)->get($route_name);
 			$regexp = $route['rules']['pattern'];
 			$fqdn_regexp = $route['rules']['fqdn_pattern'];
 			$method = $route['rules']['method'];
@@ -55,6 +63,7 @@ class Router extends \IObject{
 				$fqdn_pattern = "";
 			}
 
+			$this->setLastRegexp($regexp);
 			//match against the uri
 			if($fqdn_match){
 //var_dump(preg_match_all($regexp, $uri->baseurl, $result),$regexp,$uri->baseurl);
@@ -93,7 +102,7 @@ class Router extends \IObject{
 
 
 							break;
-					
+
 
 					}
 				}

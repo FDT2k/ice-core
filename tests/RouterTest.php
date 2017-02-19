@@ -31,12 +31,12 @@ class RouterTest extends TestCase
   }
   public function testRouter()
     {
-    
+
       $uri = $this->getURI('http://www.example.com/ticket');
       $router = $this->router->match($uri);
       $this->assertNotNull($router);
 
-  $router->clearData();
+      $router->clearData();
       $uri = $this->getURI('http://www.example.com/api/tickets');
         \FDT2k\Noctis\Core\Env::getRequest()->setMethod('GET');
       $router = $this->router->match($uri);
@@ -136,5 +136,23 @@ class RouterTest extends TestCase
       $this->assertEquals($router->getModule(),'myRestController');
       $this->assertEquals($router->getAction(),'view');
 
+
+      $router->clearData();
+
+
+      $uri = $this->getURI('http://www.example.com/api/tickets/1');
+      $this->router->configGroup= 'router2';
+      \FDT2k\Noctis\Core\Env::getRequest()->setMethod('POST');
+      $router = $this->router->match($uri);
+    //  var_dump($uri->baseurl,$this->router->getLastRegexp()."___________-",$this->router->getRouteName());
+
+      //var_dump($router->getLastRegexp());
+      $this->assertNotNull($router);
+      $this->assertEquals($router->getBundle(),'app');
+      $this->assertEquals($router->getModule(),'tickets');
+      $this->assertEquals($router->getAction(),'save');
+
     }
+
+
 }

@@ -104,3 +104,13 @@ api2redirect2:
 		bundle: app%rev
 		controller: %controller%
 		action: view
+
+
+merged_add_update:
+  rules:
+    pattern: /api/:controller/(:id)?
+    method: POST
+  route:
+    bundle: app
+    controller: %controller%
+    action: save

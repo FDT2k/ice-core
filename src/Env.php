@@ -319,6 +319,7 @@ class Env{
 	}
 
 	public static function getConfig($group='core'){
+	
 		return self::$config->setGroup($group);
 	}
 

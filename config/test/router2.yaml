@@ -1,0 +1,18 @@
+default_route:
+	rules:
+		pattern: //$
+
+	route:
+		bundle: app
+		controller: base
+		action: index
+
+
+merged_add_update:
+  rules:
+    pattern: /api/:controller/?(:id)?
+    method: POST
+  route:
+    bundle: app
+    controller: %controller%
+    action: save
