@@ -9,11 +9,14 @@ class RestController extends Controller{
 		return Env::getRequest()->getMethod() == "OPTIONS" || $this->action == "authenticate" || $this->action == '_register';
 	}
 
+	function hasAccess(){
+		return Env::getAuthService()->is_logged();
+	}
+
 	function beforeActionRun($action){
 
-			$this->is_logged = Env::getAuthService()->is_logged();
 
-			if(!$this->is_logged && !$this->publicAccess()){
+			if(!$this->hasAccess() && !$this->publicAccess()){
 				$this->response->setResponseCode(401);
 				$this->response->setError("unauthorized access");
 				return $this->response;
