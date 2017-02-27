@@ -8,7 +8,7 @@ class DBAuthenticationService extends AuthenticationService {
 		if($model = Env::getConfig("auth")->get('user_model')){
 			$this->model = new $model();
 			if(!$this->model instanceOf  \FDT2k\Noctis\Core\Iface\UserInterface){
-				throw new \Exception("error, assigned model ".$model." should implements  \FDT2k\Noctis\Core\Iface\UserInterface",0,"");
+				throw new \Exception("error, assigned model ".$model." should implements  \FDT2k\Noctis\Core\Iface\UserInterface",0);
 			}
 		}
 	}
