@@ -16,3 +16,13 @@ merged_add_update:
     bundle: app
     controller: %controller%
     action: save
+
+
+merged_options:
+  rules:
+    pattern: /api/:controller/?(:action)?
+    method: OPTIONS
+  route:
+    bundle: app
+    controller: commonController
+    action: optionRequest

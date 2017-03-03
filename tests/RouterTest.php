@@ -152,6 +152,19 @@ class RouterTest extends TestCase
       $this->assertEquals($router->getModule(),'tickets');
       $this->assertEquals($router->getAction(),'save');
 
+      $uri = $this->getURI('http://www.example.com/api/tickets/1');
+      $this->router->configGroup= 'router2';
+      \FDT2k\Noctis\Core\Env::getRequest()->setMethod('OPTIONS');
+      $router = $this->router->match($uri);
+    //  var_dump($uri->baseurl,$this->router->getLastRegexp()."___________-",$this->router->getRouteName());
+
+      var_dump($router->getLastRegexp());
+      $this->assertNotNull($router);
+      $this->assertEquals($router->getBundle(),'app');
+      $this->assertEquals($router->getModule(),'commonController');
+      $this->assertEquals($router->getAction(),'optionRequest');
+
+
     }
 
 

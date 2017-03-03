@@ -46,4 +46,9 @@ class RestController extends Controller{
 		return $this->response;
 	}
 
+
+		function optionRequestAction(){
+
+			return $this->response;
+		}
 }
