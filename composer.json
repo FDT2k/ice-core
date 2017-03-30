@@ -25,20 +25,5 @@
         "fdt2k/common-libs":"*"
 
 
-    },
-    "repositories": [
-      {
-          "type": "vcs",
-          "url": "https://git.geekagency.ch/FDT2k/phplibs.git"
-      },
-      {
-          "type": "vcs",
-          "url": "https://git.geekagency.ch/FDT2k/config-manager.git"
-      },
-
-        {
-            "type": "vcs",
-            "url": "https://git.geekagency.ch/FDT2k/php-root-object.git"
-        }
-      ]
+    }
 }
