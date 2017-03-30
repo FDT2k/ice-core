@@ -51,4 +51,14 @@ class RestController extends Controller{
 
 			return $this->response;
 		}
+
+	function assertParams($data,$keys){
+		foreach($keys as $key=>$options){
+
+			if(!$data[$key]){
+				return false;
+			}
+		}
+		return true;
+	}
 }
