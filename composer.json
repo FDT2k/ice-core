@@ -1,8 +1,8 @@
 {
     "name": "fdt2k/noctis-framework",
     "version":"1.0",
-    "description": "ICE Framework Core",
-    "license": "BSD-3-Clause-Attribution",
+    "description": "Noctis Framework Core",
+    "license": "MIT",
     "authors": [
         {
             "name": "Fabien Di Tore",
