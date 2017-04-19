@@ -21,7 +21,7 @@
     "minimum-stability": "dev",
     "require": {
         "fdt2k/baseobject":"*",
-        "fdt2k/configmanager":"*",
+        "fdt2k/config-manager":"*",
         "fdt2k/common-libs":"*"
 
 
