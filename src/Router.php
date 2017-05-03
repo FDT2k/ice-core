@@ -70,6 +70,9 @@ class Router extends \IObject{
 				if(preg_match_all($regexp, $uri->baseurl, $result)){
 
 					//matching against the method, empty method assumes all methods
+					if(empty($method)){
+						$method="GET";
+					}
 					if(strpos($method, Env::getRequest()->getMethod()) !== false || empty($method)) {
 						// apply variables
 						if(is_array($matches[0])){
