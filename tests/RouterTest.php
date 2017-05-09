@@ -1,7 +1,8 @@
 <?php
 $dir = dirname(dirname(__FILE__));
 set_include_path($dir);
-use PHPUnit\Framework\TestCase;
+
+//use PHPUnit\Framework\TestCase;
 
 define('ICE_ROOT',$dir);
 define('ICE_PATH','');
@@ -10,7 +11,7 @@ require ($dir."/src/Env.php");
 require ($dir."/src/Service/ServiceManager.php");
 require ($dir."/src/Cli/OptionsParser.php");
 
-class RouterTest extends TestCase
+class RouterTest extends PHPUnit_Framework_TestCase
 {
   protected function setUp()
      {

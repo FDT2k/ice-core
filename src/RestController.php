@@ -5,6 +5,7 @@ class RestController extends Controller{
 
 
 
+
 	function publicAccess(){
 		return Env::getRequest()->getMethod() == "OPTIONS" || $this->action == "authenticate" || $this->action == '_register';
 	}

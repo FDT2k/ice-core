@@ -25,5 +25,9 @@
         "fdt2k/common-libs":"*"
 
 
+    },
+    "require-dev":{
+        "phpunit/phpunit": "3.7.*"
     }
+    
 }
