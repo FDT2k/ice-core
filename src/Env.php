@@ -30,6 +30,7 @@ class Env{
 	public static $router;
 	public static $authenticationService;
 	public static $options;
+	public static $serviceManager;
 
 	public static $userSessionService;
 
@@ -80,22 +81,9 @@ class Env{
 		//
 		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE || self::$platform==ICE_ENV_FCGI){
 			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
-		}else{ // assuming cli env
+		}else{ // assuming cli env,  the option for the called path is -u
 			$o = \getopt("u:");
 
-			/*$str = "";
-			foreach($argv as $k=>$value){
-				if($k==0){
-					continue;
-				}
-				$str .= $sep.$value;
-				if($k==1){
-					$sep="?";
-				}else{
-					$sep="&";
-				}
-			}*/
-		//	var_dump($str);
 			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
 		}
 		self::$request = new Request();
@@ -319,7 +307,7 @@ class Env{
 	}
 
 	public static function getConfig($group='core'){
-	
+
 		return self::$config->setGroup($group);
 	}
 
@@ -332,6 +320,10 @@ class Env{
 	}
 	public static function getUserSessionService(){
 		return self::$userSessionService;
+	}
+
+	public static function getServiceManager(){
+		return \FDT2k\Noctis\Core\Service\ServiceManager;
 	}
 	public static function getClientIP(){
 	//var_dump($_SERVER);

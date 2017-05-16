@@ -1,0 +1,24 @@
+#these are the default loaded services
+
+
+#not allowing service autoload
+# auto loaded service can run code at specific points in the execution of the framework.
+allow_services_autoload: false
+
+
+load:
+  SM_Generic:
+    - "propel": "\GKA\Noctis\Service\Propel\PropelService"
+
+  SM_Auth:
+    - "auth": "\FDT2k\Noctis\Core\Service\DBAuthenticationService"
+
+  SM_Session:
+    - "jwt": "\FDT2k\Noctis\Core\Service\UserSessionService"
+
+  SM_Log:
+    - ""
+
+#generic_conf
+#Required for authentication service, each service must be configured differently, see service documentation.
+user_model: "\app\model\User"

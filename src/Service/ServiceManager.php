@@ -3,11 +3,16 @@ namespace FDT2k\Noctis\Core\Service;
 /*
 ServiceManager is loaded on Env init and runs services function at specific points
 */
+
 class ServiceManager
 {
   static $services;
 
-  static function registerService($instance){
+  static function autoloadService($instance,$as='',$category=''){
+
+  }
+
+  static function registerService($instance,$as='',$category=''){
     self::$services[]=$instance;
   }
 

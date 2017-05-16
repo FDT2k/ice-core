@@ -10,6 +10,8 @@ class DBAuthenticationService extends AuthenticationService {
 			if(!$this->model instanceOf  \FDT2k\Noctis\Core\Iface\UserInterface){
 				throw new \Exception("error, assigned model ".$model." should implements  \FDT2k\Noctis\Core\Iface\UserInterface",0);
 			}
+		}else{
+			throw new \Exception("error, no model defined. Please set service.yaml -> user_model.");
 		}
 	}
 
