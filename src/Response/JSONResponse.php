@@ -6,6 +6,7 @@ class JSONResponse extends Response{
 
 	var $mime = 'application/json';
 	var $result = false;
+	var $nocache =false;
 	//var $data = new Object();;
 	function __construct($buffer=''){
 		$this->data= $buffer;
@@ -14,7 +15,10 @@ class JSONResponse extends Response{
 		$this->setApiMode(true);
 	}
 
-
+	function nocache(){
+		$this->nocache = true;
+		return $this;
+	}
 	function build_response(){
 		if($this->isApiMode()){
 			$response = array();
@@ -35,6 +39,11 @@ class JSONResponse extends Response{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: origin, content-type, accept, Authorization");
 		header("Access-Control-Allow-Methods: PUT,GET,POST,DELETE, OPTIONS");
+		if($this->nocache){
+			header('Pragma: no-cache');
+			header('Cache-Control: no-cache');
+			header('Expires: 0');
+		}
 	}
 
 
