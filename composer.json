@@ -22,12 +22,13 @@
     "require": {
         "fdt2k/baseobject":"*",
         "fdt2k/config-manager":"*",
-        "fdt2k/common-libs":"*"
+        "fdt2k/common-libs":"*",
+        "firebase/php-jwt":"*",
 
 
     },
     "require-dev":{
         "phpunit/phpunit": "3.7.*"
     }
-    
+
 }
