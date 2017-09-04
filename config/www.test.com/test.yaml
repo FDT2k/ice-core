@@ -1,0 +1,2 @@
+extends: env_test
+test: fqdn

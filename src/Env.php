@@ -33,24 +33,7 @@ class Env{
 
 	public static $userSessionService;
 
-
-	public static function preinit($argv){
-		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
-		//self::$profiler = new Profiler;
-
-		//Doing some php configuration
-		register_shutdown_function(__NAMESPACE__ .'\Env::shutdown');
-		ini_set('output_buffering','0');
-		ini_set('error_reporting','E_ALL');
-		error_reporting( E_ALL & ~E_NOTICE &~E_STRICT);
-		ini_set('display_startup_errors', 'on');
-		ini_set('display_errors', 'on');
-		ini_set('session.gc_probability','1');
-
-		ini_set('session.gc_divisor','20');
-		ini_set('session.gc_maxlifetime','300');
-
-
+	public static function determine_handler(){
 		// grabbing some environmental datas
 		switch(php_sapi_name()){
 			case 'apache2handler':
@@ -70,65 +53,88 @@ class Env{
 				self::$platform = ICE_ENV_PLATFORM_UNKOWN;
 			break;
 		}
+	}
 
+	public static function default_ini_set(){
+		ini_set('output_buffering','0');
+		ini_set('error_reporting','E_ALL');
+		error_reporting( E_ALL & ~E_NOTICE &~E_STRICT);
+		ini_set('display_startup_errors', 'on');
+		ini_set('display_errors', 'on');
+		ini_set('session.gc_probability','1');
+
+		ini_set('session.gc_divisor','20');
+		ini_set('session.gc_maxlifetime','300');
+	}
+
+	public static function set_environment_handler($argv){
 		if(self::$platform == ICE_ENV_PLATFORM_CLI){
 			self::$options = new \FDT2k\Noctis\Core\Cli\OptionsParser();
 			self::$options->parse($argv);
 		}
 
 
-		//
+
 		if(self::$platform==ICE_ENV_PLATFORM_WS_APACHE || self::$platform==ICE_ENV_FCGI){
 			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
 		}else{ // assuming cli env
 			$o = \getopt("u:");
-
-			/*$str = "";
-			foreach($argv as $k=>$value){
-				if($k==0){
-					continue;
-				}
-				$str .= $sep.$value;
-				if($k==1){
-					$sep="?";
-				}else{
-					$sep="&";
-				}
-			}*/
-		//	var_dump($str);
 			self::$uri = new Helpers\URI(str_replace($_SERVER['SCRIPT_NAME'],"","cli://localhost".$o['u']));
 		}
-		self::$request = new Request();
+	}
+
+	static public function load_config(){
 		// retrieving ENV, for current configuration
-		$found = false;
-		// if environment variable is set we take this one
+		$fqdn_config_found = false;
+		// Configuration Manager Loading
+
+		//first we try to load the ENV Var
 		if(getenv('ICE_CONFIG')!=''){
 			self::$env = getenv('ICE_CONFIG');
-			$found= true;
+		//	$fqdn_config_found= true;
 		}else{ // searching in FQDN config
-			$c = new \ConfigManager(Env::getFSConfigPath(),'core'); // fqdn.yaml is always in core
-		//	$found = false;
+			self::$env = ICE_ENV;
+		}
 
-			if($map = $c->setGroup('fqdn')->get('config_mapping')){
+		//load the intermediate config
+		self::$config = new \ConfigManager(Env::getFSConfigPath(),self::$env);
 
-				foreach($map as $fqdn =>$config){
-					#var_dump(self::getFQDN());
+		if($map = self::$config->setGroup('fqdn')->get('config_mapping')){
 
-					if(preg_match('/'.$fqdn.'/',self::getFQDN())){
+			foreach($map as $fqdn =>$config){
+				#var_dump(self::getFQDN());
+				if(preg_match('/'.$fqdn.'/',self::getFQDN())){
 
-						self::$env =$config;
-						$found = true;
-						break;
-					}
+					self::$env =$config;
+					$fqdn_config_found = true;
+					break;
 				}
 			}
 		}
-		// at last we get the one defined in config.inc.php
 
-		if(!$found){
-			self::$env = ICE_ENV;
+		// Reload the config manager if we found something in the FQDN config
+		if($fqdn_config_found){
+			self::$config = new \ConfigManager(Env::getFSConfigPath(),self::$env);
 		}
-		self::$config = new \ConfigManager(Env::getFSConfigPath(),self::$env);
+	}
+
+	public static function preinit($argv){
+		spl_autoload_register(__NAMESPACE__ .'\Env::autoload');
+		//self::$profiler = new Profiler;
+
+		//Doing some php configuration
+		register_shutdown_function(__NAMESPACE__ .'\Env::shutdown');
+
+		self::default_ini_set();
+
+		self::determine_handler();
+
+
+		self::set_environment_handler($argv);
+
+		self::$request = new Request();
+
+		self::load_config();
 
 		//grabbing root ws path
 		if(($path = self::getConfig()->get('web_ws_path',true))!== false){
@@ -319,7 +325,7 @@ class Env{
 	}
 
 	public static function getConfig($group='core'){
-	
+
 		return self::$config->setGroup($group);
 	}
 

@@ -1,0 +1,2 @@
+config_mapping:
+    ^www\.test.com: www.test.com
