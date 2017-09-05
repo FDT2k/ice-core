@@ -15,7 +15,13 @@ class Request extends \IObject{
 		$this->setContentType($request['CONTENT_TYPE']);
 
 		if(Env::$platform == ICE_ENV_PLATFORM_WS_APACHE){
-			$this->setHeaders(\getallheaders());
+			//$this->setHeaders(\getallheaders());
+			$headers = \getallheaders();
+			$_headers = array();
+			foreach($headers as $key => $value){
+				$_headers[strtolower($key)]=$value;
+			}
+			$this->setHeaders($_headers);
 		}
 
 		$this->get = \IObject::create()->setDefaultDatas($_GET);
@@ -57,6 +63,7 @@ class Request extends \IObject{
 	}
 
 	function getHeader($key){
+		$key = strtolower($key);
 		$h = $this->getHeaders();
 		return $h[$key];
 	}
