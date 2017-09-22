@@ -40,7 +40,8 @@ class Front {
     	echo "Database Error: ".$e;
     	die();
     }catch(\Exception $e){
-    	var_dump($e);
+    	//var_dump($e);
+      echo $e;
     	if(Env::getConfig('core')->get('allow_create_missing_path')){
     		echo "<a href='".Env::getRoute()->link('createMissingPath','scaffolder','dev',array('uri'=>urlencode(Env::getURI()->pathAsString())))."'>create it</a>";
     	}
