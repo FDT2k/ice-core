@@ -14,7 +14,7 @@ class UserSessionService extends \IObject {
 	/**
 	Recover a jwt user session from a cookie
 	**/
-	function recover_session(){
+	function recover_session($token=''){
 		//$r = Env::getRequest();
 		$key = Env::getConfig("jwt")->get('key');
 
@@ -26,8 +26,9 @@ class UserSessionService extends \IObject {
 		}
 		//retrieve user token // priority order -> cookie-> headers
 		$result = false;
-		$token = (isset($_COOKIE[$cookie_key]))? $_COOKIE[$cookie_key] : Env::getRequest()->getToken();
-
+		if(empty($token)){
+			$token = (isset($_COOKIE[$cookie_key]))? $_COOKIE[$cookie_key] : Env::getRequest()->getToken();
+		}
 	//	var_dump($_COOKIE);
 
 		try{
