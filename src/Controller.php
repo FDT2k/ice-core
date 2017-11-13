@@ -135,6 +135,13 @@ class Controller extends \IObject{
 					}
 
 					if($this->response && is_a($this->response,'\FDT2k\Noctis\Core\Response\Response') ){
+						if(Env::getConfig('core')->get('debugRouter')){
+							$this->response->setRouterDebug(Env::getRouter()->getRouteName());
+							$this->response->setRouterDebug2(Env::getRouter()->uri->baseurl);
+							$this->response->setRouterDebug3(Env::getRouter()->uri->hostname);
+							$this->response->setRouterDebug3(Env::getRouter()->getLastRegexp());
+						}
+
 						$this->response->output();
 					}
 				}else{

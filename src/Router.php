@@ -15,6 +15,7 @@ class Router extends \IObject{
 		$match = false;
 		if(empty($uri)){
 			$uri = Env::getRequest()->getURI();
+			$this->uri = $uri;
 		}
 		$config_group = $this->configGroup;
 
