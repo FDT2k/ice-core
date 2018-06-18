@@ -11,6 +11,16 @@ class ServiceManager
     self::$services[]=$instance;
   }
 
+  static function findService($service_name){
+    foreach(self::$services as $service){
+
+      if ($service::SERVICE_NAME == $service_name){
+        return $service;
+      }
+    }
+    return false;
+  }
+
   static function triggerAutoload($name){
     if(is_array(self::$services)){
       foreach(self::$services as $service){
