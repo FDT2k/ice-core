@@ -35,17 +35,21 @@ class Front {
 
     	//$logs = ICE\Env::getLogger()->dump();
     }catch(IMCoreException $e){
+      header("HTTP/1.0 500 Internal Server Error");
     	echo "Exception :".$e;
     }catch(\FDT2k\Libs\DatabaseException $e){
+      header("HTTP/1.0 500 Internal Server Error");
     	echo "Database Error: ".$e;
     	die();
     }catch(\Exception $e){
     	//var_dump($e);
+      header("HTTP/1.0 500 Internal Server Error");
       echo $e;
     	if(Env::getConfig('core')->get('allow_create_missing_path')){
     		echo "<a href='".Env::getRoute()->link('createMissingPath','scaffolder','dev',array('uri'=>urlencode(Env::getURI()->pathAsString())))."'>create it</a>";
     	}
     }catch(ActionException $e){
+      header("HTTP/1.0 500 Internal Server Error");
     	echo $e;
     	if(ICE\Env::getConfig('core')->get('allow_create_missing_action')){
     		echo "<a href='".Env::getRoute()->link('createMissingPath','scaffolder','dev',array('uri'=>urlencode(Env::getURI()->pathAsString())))."'>create action</a>";
